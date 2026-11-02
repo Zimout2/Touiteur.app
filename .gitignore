@@ -1,0 +1,11 @@
+# class
+out/
+*.class
+
+# config intelliJ
+.idea/
+*.iml
+
+# config application
+*.ini
+
