@@ -21,10 +21,6 @@ abstract class Entite {
         $this->pseudo = $pseudo;
     }
 
-    public function setID(int $id): void {
-        $this->id = $id;
-    }
-
     public function getId(): int {
         return $this->id;
     }
