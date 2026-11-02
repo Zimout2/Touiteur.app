@@ -3,8 +3,8 @@
 namespace entite;
 
 class User {
-    protected string $pseudo;
     protected int $id;
+    protected string $libelle;
     protected array $liste_suivie;
     protected array $liste_follow;
     protected string $date;
