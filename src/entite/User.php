@@ -10,9 +10,10 @@ class User {
     protected array $liste_suivie;
     protected array $liste_tuite;
     protected array $liste_tag;
+    protected array $liste_follow;
     protected int $id;
 
-    public function __construct(string $name, string $prenom, string $email, int $nb_tuile, int $id) {
+    public function __construct(string $name, string $prenom, string $email, int $nb_tuile, int $id, array $liste_follow) {
         $this->name = $name;
         $this->prenom = $prenom;
         $this->email = $email;
@@ -21,6 +22,7 @@ class User {
         $this->liste_tuite = [];
         $this->liste_tag = [];
         $this->id = $id;
+        $this->liste_follow = [];
     }
     public function getName(): string {
         return $this->name;
@@ -66,5 +68,11 @@ class User {
     }
     public function getId(): int {
         return $this->id;
+    }
+    public function getListeFollow(): array {
+        return $this->liste_follow;
+    }
+    public function setListeFollow(array $liste_follow): void {
+        $this->liste_follow = $liste_follow;
     }
 }
