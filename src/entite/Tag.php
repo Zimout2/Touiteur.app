@@ -3,56 +3,42 @@
 namespace Entite;
 
 class Tag {
-    protected string $name;
-    protected string $prenom;
-    protected int $nb_tuile;
+    protected int $id;
+    protected string $libelle;
+    protected string $description;
     protected array $liste_suivie;
-    protected array $liste_tuite;
-    protected array $liste_tag;
-    public function __construct(string $name, string $prenom, int $nb_tuile, array $liste_suivie, array $liste_tuite, array $liste_tag) {
-        $this->name = $name;
-        $this->prenom = $prenom;
-        $this->nb_tuile = $nb_tuile;
-        $this->liste_suivie = $liste_suivie;
-        $this->liste_tuite = $liste_tuite;
-        $this->liste_tag = $liste_tag;
-    }
+    protected array $liste_tuites;
 
-    public function getName(): string {
-        return $this->name;
+    public function __construct(int $id, string $libelle, string $description, array $liste_suivie, array $liste_tuites) {
+        $this->id = $id;
+        $this->libelle = $libelle;
+        $this->description = $description;
+        $this->liste_suivie = $liste_suivie;
+        $this->liste_tuites = $liste_tuites;
     }
-    public function getPrenom(): string {
-        return $this->prenom;
+    public function getId(): int {
+        return $this->id;
     }
-    public function getNbTuile(): int {
-        return $this->nb_tuile;
+    public function getLibelle(): string {
+        return $this->libelle;
+    }
+    public function getDescription(): string {
+        return $this->description;
     }
     public function getListeSuivie(): array {
-        return $this->liste_suivie;
+        return $this->liste_tuites;
     }
-    public function getListeTuite(): array {
-        return $this->liste_tuite;
+    public function getListeTuites(): array {
+        return $this->liste_tuites;
     }
-    public function getListeTag(): array {
-        return $this->liste_tag;
+    public function setListeSuivie(array $liste_tuites): void {
+        $this->liste_tuites = $liste_tuites;
     }
-    public function setName(string $name): void {
-        $this->name = $name;
+    public function setListeTuites(array $liste_tuites): void {
+        $this->liste_tuites = $liste_tuites;
     }
-    public function setPrenom(string $prenom): void {
-        $this->prenom = $prenom;
-    }
-    public function setNbTuile(int $nb_tuile): void {
-        $this->nb_tuile = $nb_tuile;
-    }
-    public function setListeSuivie(array $liste_suivie): void {
-        $this->liste_suivie = $liste_suivie;
-    }
-    public function setListeTuite(array $liste_tuite): void {
-        $this->liste_tuite = $liste_tuite;
-    }
-    public function setListeTag(array $liste_tag): void {
-        $this->liste_tag = $liste_tag;
+    public function setDescription(string $description): void {
+        $this->description = $description;
     }
     public function existe(int $id) : bool {
         if ($this->id == $id) {

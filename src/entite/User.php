@@ -3,39 +3,63 @@
 namespace entite;
 
 class User {
-    protected int $id;
-    protected string $libelle;
+    protected string $name;
+    protected string $prenom;
+    protected string $email;
+    protected int $nb_tuile;
     protected array $liste_suivie;
-    protected array $liste_follow;
-    protected string $date;
-    public function __construct(string $pseudo, int $id, int $liste_suivie, int $liste_follow, string $date) {
-        parent::__construct($pseudo, $id, $liste_suivie, $liste_follow);
-        $this->date = $date;
-    }
+    protected array $liste_tuite;
+    protected array $liste_tag;
 
-    public function getPseudo(): string {
-        return $this->pseudo;
+    public function __construct(string $name, string $prenom, string $email, int $nb_tuile) {
+        $this->name = $name;
+        $this->prenom = $prenom;
+        $this->email = $email;
+        $this->nb_tuile = $nb_tuile;
+        $this->liste_suivie = [];
+        $this->liste_tuite = [];
+        $this->liste_tag = [];
     }
-    public function getId(): int {
-        return $this->id;
+    public function getName(): string {
+        return $this->name;
     }
-    public function getListeSuivie(): int {
+    public function setName(string $name): void {
+        $this->name = $name;
+    }
+    public function getPrenom(): string {
+        return $this->prenom;
+    }
+    public function setPrenom(string $prenom): void {
+        $this->prenom = $prenom;
+    }
+    public function getEmail(): string {
+        return $this->email;
+    }
+    public function setEmail(string $email): void {
+        $this->email = $email;
+    }
+    public function getNbTuile(): int {
+        return $this->nb_tuile;
+    }
+    public function setNbTuile(int $nb_tuile): void {
+        $this->nb_tuile = $nb_tuile;
+    }
+    public function getListeSuivie(): array {
         return $this->liste_suivie;
     }
-    public function getListeFollow(): int {
-        return $this->liste_follow;
-    }
-    public function getDate(): string {
-        return $this->date;
-    }
-    public function setPseudo(string $pseudo): void {
-        $this->pseudo = $pseudo;
-    }
-
-    public function setListeSuivie(int $liste_suivie): void {
+    public function setListeSuivie(array $liste_suivie): void {
         $this->liste_suivie = $liste_suivie;
     }
-    public function setListeFollow(int $liste_follow): void {
-        $this->liste_follow = $liste_follow;
+    public function getListeTuite(): array {
+        return $this->liste_tuite;
+    }
+    public function setListeTuite(array $liste_tuite): void {
+        $this->liste_tuite = $liste_tuite;
+    }
+    public function getListeTag(): array {
+        return $this->liste_tag;
+    }
+    public function setListeTag(array $liste_tag): void {
+        $this->liste_tag = $liste_tag;
     }
 }
