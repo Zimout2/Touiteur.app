@@ -6,15 +6,15 @@ class Tag {
     protected int $id;
     protected string $libelle;
     protected string $description;
-    protected array $liste_suivie;
-    protected array $liste_touites;
+    protected int $id_user;
+    protected int $id_tuites;
 
-    public function __construct(int $id, string $libelle, string $description, array $liste_suivie, array $liste_touites) {
+    public function __construct(int $id, string $libelle, string $description, int $id_user, int $id_tuites) {
         $this->id = $id;
         $this->libelle = $libelle;
         $this->description = $description;
-        $this->liste_suivie = $liste_suivie;
-        $this->liste_touites = $liste_touites;
+        $this->id_user = $id_user;
+        $this->id_tuites = $id_tuites;
     }
     public function getId(): int {
         return $this->id;
@@ -25,17 +25,11 @@ class Tag {
     public function getDescription(): string {
         return $this->description;
     }
-    public function getListeSuivie(): array {
-        return $this->liste_tuites;
+    public function getIdUser(): int {
+        return $this->id_user;
     }
-    public function getListe_Touites(): array {
-        return $this->liste_touites;
-    }
-    public function setListeSuivie(array $liste_tuites): void {
-        $this->liste_tuites = $liste_tuites;
-    }
-    public function setListeTouites(array $liste_touites): void {
-        $this->liste_touites = $liste_touites;
+    public function getIdTuites(): int {
+        return $this->id_tuites;
     }
     public function setDescription(string $description): void {
         $this->description = $description;
