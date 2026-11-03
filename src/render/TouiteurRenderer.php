@@ -4,6 +4,9 @@
 
 namespace touiteur\render;
 
+use touiteur\entite\User;
+use touiteur\touite\Touite;
+
 
 class TouiteurRenderer implements Renderer {
 
@@ -18,7 +21,7 @@ class TouiteurRenderer implements Renderer {
 
 
     private string $message;
-    private Entite $user;
+    private User $user;
     private string $date;
     private ?int $like = 0;
 
