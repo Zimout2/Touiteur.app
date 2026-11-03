@@ -1,6 +1,6 @@
 <?php
 
-namespace entite;
+namespace touiteur\entite;
 
 class User {
     protected int $id;
