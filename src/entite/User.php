@@ -10,8 +10,9 @@ class User {
     protected array $liste_suivie;
     protected array $liste_tuite;
     protected array $liste_tag;
+    protected int $id;
 
-    public function __construct(string $name, string $prenom, string $email, int $nb_tuile) {
+    public function __construct(string $name, string $prenom, string $email, int $nb_tuile, int $id) {
         $this->name = $name;
         $this->prenom = $prenom;
         $this->email = $email;
@@ -19,6 +20,7 @@ class User {
         $this->liste_suivie = [];
         $this->liste_tuite = [];
         $this->liste_tag = [];
+        $this->id = $id;
     }
     public function getName(): string {
         return $this->name;
@@ -61,5 +63,8 @@ class User {
     }
     public function setListeTag(array $liste_tag): void {
         $this->liste_tag = $liste_tag;
+    }
+    public function getId(): int {
+        return $this->id;
     }
 }
