@@ -10,6 +10,7 @@ class Touite {
     protected User $user;
     protected string $date;
     protected ?int $likes;
+    protected ?int $dislikes;
     protected array $tags;
 
     public function __construct(int $id, string $message, User $user, string $date, ?int $likes, array $tags){
@@ -24,26 +25,53 @@ class Touite {
     public function getId(): int{
         return $this->id;
     }
+    public function setId(int $id): void{
+        $this->id = $id;
+    }
 
     public function getMessage(): string{
         return $this->message;
+    }
+    public function setMessage(string $message): void{
+        $this->message = $message;
     }
 
     public function getUser(): User{
         return $this->user;
     }
+    public function setUser(User $user): void{
+        $this->user = $user;
+    }
 
     public function getDate(): string{
         return $this->date;
     }
+    public function setDate(string $date): void{
+        $this->date = $date;
+    }
 
-    public function getLikes(): string{
+    public function getLikes(): ?int{
         return $this->likes;
+    }
+    public function setLikes(?int $likes): void{
+        $this->likes = $likes;
+    }
+
+    public function getDislikes(): ?int{
+        return $this->dislikes;
+    }
+    public function setDislikes(?int $dislikes): void{
+        $this->dislikes = $dislikes;
     }
 
     public function estLike(): bool{
         $listeLikesUsr = $this->user->getListe_touites_liker();
         return in_array($this, $listeLikesUsr);
+    }
+
+    public function estDislike(): bool{
+        $listeDislikesUsr = $this->user->getListe_touites_disliker();
+        return in_array($this, $listeDislikesUsr);
     }
 
     protected function hashtag(string $msg): void{
@@ -63,6 +91,9 @@ class Touite {
     public function getTags(): array{
         $this->hashtag($this->message);
         return $this->tags;
+    }
+    public function setTags(array $tags){
+        $this->tags = $tags;
     }
 
     public function __toString(): string {
