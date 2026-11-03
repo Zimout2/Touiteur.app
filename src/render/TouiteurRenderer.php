@@ -80,6 +80,7 @@ class TouiteurRenderer implements Renderer {
         }
         $html .= "<small>" . $this->date . "</small>";
         $html .= "<small> Like : " . $this->like . "</small>";
+        $html .= "<br>";
 
         return $html;
     }
