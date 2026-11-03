@@ -15,10 +15,10 @@ class User {
     protected array $liste_follow;
     protected int $id;
 
-    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker, array $liste_touite_disliker, string $nom) {
+    public function __construct(string $prenom, string $email, int $nb_touite, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker, array $liste_touite_disliker, string $nom) {
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->nb_touile = $nb_touile;
+        $this->nb_touile = $nb_touite;
         $this->id = $id;
         $this->liste_follow = $liste_follow;
         $this->liste_touite = $liste_touite;
