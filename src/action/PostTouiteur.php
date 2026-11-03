@@ -2,7 +2,7 @@
 
 namespace touiteur\action ;
 
-
+use touiteur\repository\TouiteurRepository;
 
 class PostTouiteur extends Action {
 
@@ -10,14 +10,14 @@ class PostTouiteur extends Action {
         if($this ->http_method === 'GET'){
             return <<<HTML
 <h2> Poster le touite </h2>
-<form methode = "post" action ="?action=post-touit" enctype="multipart/form-data">
+<form method = "post" action ="?action=post-touit" enctype="multipart/form-data">
     <label>vous pouvez ecrire un totale de 235 caractères max </label>
-    <textarea>id="texte" name="texte" rows="4" cols="50" maxlength="235" required></textarea>
+    <textarea id="texte" name="texte" rows="4" cols="50" maxlength="235" required></textarea>
     <button type="submit">Publier</button>
 </form>
 HTML;
         }
-        $texte = filter_var($_POST['texte']??'',FILTER_SANITIZE_SPECIAL_CHARS).
+        $texte = filter_var($_POST['texte']??'',FILTER_SANITIZE_SPECIAL_CHARS);
         
         if (empty($texte) || mb_strlen($texte) > 235) {
             return "<p>Erreur : Le texte ne doit pas être vide ni dépasser 235 caractères.</p>";
@@ -35,7 +35,7 @@ HTML;
             $repo->addTagToTouit($idTouit,$tagNom);
         }
 
-
+        return "<p>Votre touite a été publié avec succès ! <a href=\"?action=default\">Retour à l'accueil</a></p>";
     }
 
 
