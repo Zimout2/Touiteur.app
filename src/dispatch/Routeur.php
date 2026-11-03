@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace touiteur\dispatch ;
 
 class Router{
@@ -29,6 +29,7 @@ class Router{
 
     public function renderPage(string $html): string {
         //....TODO
+        return $html;
     }
 
 
