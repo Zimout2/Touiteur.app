@@ -7,7 +7,8 @@ create table Tag (
   libellle varchar(10),
   description varchar(10),
   liste_suivie JSON,
-  liste_touites JSON
+  liste_touites JSON,
+  primary key (id, libellle)
 );
 
 create table User (
@@ -20,7 +21,8 @@ create table User (
   liste_touite_liker JSON,
   liste_tag JSON,
   liste_follow JSON,
-  id number(2)
+  id number(2),
+  primary key(prenom, nom, email)
 );
 
 create table Touite (
@@ -29,5 +31,6 @@ create table Touite (
   user User(),
   date varchar(20),
   likes number(20),
-  tags JSON
+  tags JSON,
+  primary key (id)
 );
