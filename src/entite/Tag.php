@@ -1,6 +1,6 @@
 <?php
 
-namespace Entite;
+namespace touiteur\entite;
 
 class Tag {
     protected int $id;
