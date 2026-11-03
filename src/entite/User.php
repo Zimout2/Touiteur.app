@@ -3,28 +3,26 @@
 namespace touiteur\entite;
 
 class User {
-    protected string $name;
     protected string $prenom;
     protected string $email;
-    protected int $nb_tuile;
+    protected int $nb_touile;
     protected array $liste_suivie;
-    protected array $liste_tuite;
+    protected array $liste_touite;
+    protected array $liste_touite_liker;
     protected array $liste_tag;
+    protected array $liste_follow;
+    protected int $id;
 
-    public function __construct(string $name, string $prenom, string $email, int $nb_tuile) {
-        $this->name = $name;
+    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker) {
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->nb_tuile = $nb_tuile;
-        $this->liste_suivie = [];
-        $this->liste_tuite = [];
-        $this->liste_tag = [];
-    }
-    public function getName(): string {
-        return $this->name;
-    }
-    public function setName(string $name): void {
-        $this->name = $name;
+        $this->nb_touile = $nb_touile;
+        $this->id = $id;
+        $this->liste_follow = $liste_follow;
+        $this->liste_touite = $liste_touite;
+        $this->liste_tag = $liste_tag;
+        $this->liste_suivie = $liste_suivie;
+        $this->liste_touite_liker = $liste_touite_liker;
     }
     public function getPrenom(): string {
         return $this->prenom;
@@ -38,11 +36,11 @@ class User {
     public function setEmail(string $email): void {
         $this->email = $email;
     }
-    public function getNbTuile(): int {
-        return $this->nb_tuile;
+    public function getNbTouile(): int {
+        return $this->nb_touile;
     }
-    public function setNbTuile(int $nb_tuile): void {
-        $this->nb_tuile = $nb_tuile;
+    public function setNbTouile(int $nb_touile): void {
+        $this->nb_touile = $nb_touile;
     }
     public function getListeSuivie(): array {
         return $this->liste_suivie;
@@ -50,16 +48,31 @@ class User {
     public function setListeSuivie(array $liste_suivie): void {
         $this->liste_suivie = $liste_suivie;
     }
-    public function getListeTuite(): array {
-        return $this->liste_tuite;
+    public function getListeTouite(): array {
+        return $this->liste_touite;
     }
-    public function setListeTuite(array $liste_tuite): void {
-        $this->liste_tuite = $liste_tuite;
+    public function setListeTouite(array $liste_touite): void {
+        $this->liste_touite = $liste_touite;
     }
     public function getListeTag(): array {
         return $this->liste_tag;
     }
     public function setListeTag(array $liste_tag): void {
         $this->liste_tag = $liste_tag;
+    }
+    public function getId(): int {
+        return $this->id;
+    }
+    public function getListeFollow(): array {
+        return $this->liste_follow;
+    }
+    public function setListeFollow(array $liste_follow): void {
+        $this->liste_follow = $liste_follow;
+    }
+    public function getListe_touites_liker(): array {
+        return $this->liste_touite_liker;
+    }
+    public function setListe_touites_liker(array $liste_touite_liker): void {
+        $this->liste_touite_liker = $liste_touite_liker;
     }
 }
