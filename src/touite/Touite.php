@@ -37,7 +37,7 @@ class Touite {
         return $this->date;
     }
 
-    public function getLikes(): string{
+    public function getLikes(): ?int{
         return $this->likes;
     }
 
