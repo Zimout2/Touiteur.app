@@ -23,7 +23,7 @@ class TouiteurRenderer implements Renderer {
     private string $message;
     private User $user;
     private string $date;
-    private ?int $like = 0;
+    private ?int $likes = 0;
 
 
 
@@ -37,10 +37,10 @@ class TouiteurRenderer implements Renderer {
 
 
     public function __construct(Touite $t) {
-        $this->message = $t->message;
-        $this->user = $t->user;
-        $this->date = $t->date;
-        $this->like = $t->like;
+        $this->message = $t->getMessage();
+        $this->user = $t->getUser();
+        $this->date = $t->getDate();
+        $this->likes = $t->getLikes();
     }
 
 
