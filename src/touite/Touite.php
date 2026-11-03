@@ -10,6 +10,7 @@ class Touite {
     protected User $user;
     protected string $date;
     protected ?int $likes;
+    protected ?int $dislikes;
     protected array $tags;
 
     public function __construct(int $id, string $message, User $user, string $date, ?int $likes, array $tags){
@@ -39,6 +40,10 @@ class Touite {
 
     public function getLikes(): ?int{
         return $this->likes;
+    }
+
+    public function getDislikes(): ?int{
+        return $this->dislikes;
     }
 
     public function estLike(): bool{

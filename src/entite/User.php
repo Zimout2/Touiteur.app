@@ -10,11 +10,12 @@ class User {
     protected array $liste_suivie;
     protected array $liste_touite;
     protected array $liste_touite_liker;
+    protected array $liste_touite_disliker;
     protected array $liste_tag;
     protected array $liste_follow;
     protected int $id;
 
-    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker, string $nom) {
+    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker, array $liste_touite_disliker, string $nom) {
         $this->prenom = $prenom;
         $this->email = $email;
         $this->nb_touile = $nb_touile;
@@ -24,6 +25,7 @@ class User {
         $this->liste_tag = $liste_tag;
         $this->liste_suivie = $liste_suivie;
         $this->liste_touite_liker = $liste_touite_liker;
+        $this->liste_touite_disliker = $liste_touite_disliker;
         $this->nom = $nom;
     }
     public function getPrenom(): string {
@@ -76,6 +78,12 @@ class User {
     }
     public function setListe_touites_liker(array $liste_touite_liker): void {
         $this->liste_touite_liker = $liste_touite_liker;
+    }
+    public function getListe_touites_disliker(): array {
+        return $this->liste_touite_liker;
+    }
+    public function setListe_touites_disliker(array $liste_touite_disliker): void {
+        $this->liste_touite_disliker = $liste_touite_disliker;
     }
     public function getNom(): string {
         return $this->nom;
