@@ -3,15 +3,16 @@ drop table User;
 drop table Touite;
 
 create table Tag (
-  id number(100),
+  id_tag number(100),
   libellle varchar(10),
   description varchar(10),
   liste_suivie JSON,
   liste_touites JSON,
-  primary key (id, libellle)
+  primary key (id_tag, libellle)
 );
 
 create table User (
+  id_user number(50),
   prenom varchar(10),
   nom varchar(10),
   email varchar(10),
@@ -22,15 +23,15 @@ create table User (
   liste_tag JSON,
   liste_follow JSON,
   id number(2),
-  primary key(prenom, nom, email)
+  primary key(id_user)
 );
 
 create table Touite (
-  id number(2),
+  id_touite number(50),
   message varchar(255),
-  user User(),
   date varchar(20),
   likes number(20),
   tags JSON,
-  primary key (id)
+  id_user number(50),
+  primary key (id_touite)
 );
