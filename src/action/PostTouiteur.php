@@ -25,7 +25,7 @@ HTML;
 
         //pour recup le tag
         preg_match_all('/#(\w+)/u',$texte ,$matches);
-        $tags = array_unique($matches[1])
+        $tags = array_unique($matches[1]);
 
         //enregistre dans la base de donée le tag
         $repo = TouiteurRepository::getInstance();

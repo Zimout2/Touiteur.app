@@ -25,6 +25,8 @@ class TouiteurRepository{
         return self::$instance;
     }
 
-    public function getTouitById(int $id): ?array {}
+    public function getTouitById(int $id): ?array {
+        
+    }
 
 }
