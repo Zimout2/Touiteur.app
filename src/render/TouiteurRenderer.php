@@ -60,16 +60,25 @@ class TouiteurRenderer implements Renderer {
 
 
 
-    public function render(int $selector): string {
-        if ($selector == SHORT) {
-            $messageCourt = substr($this->message, 0, 100);
-            $html = "<div>";
-            $html .= "<h4>" . $this->user->pseudo . "</h4>";
-            $html .= "<p>" . $messageCourt . "</p>";
-            //bouton ou lien "plus"
-            //date
-            //like
+    public function render(): string {
+        $messageCourt = substr($this->message, 0, 100);
+        $isMessageLong = strlen($this->message) > 100;
+
+        $html = "<div>";
+        $html .= "<h4>" . $this->user->pseudo . "</h4>";
+        if ($isMessageLong) {
+            $html .= "<p>" . $messageCourt . "...</p>";
+            $html .= "<details>";
+            $html .= "  <summary>Voir plus</summary>";
+            $html .= "  <p>" . $this->message . "</p>";
+            $html .= "</details>";
+        } else {
+            $html .= "<p>" . $this->message . "</p>";
         }
+        $html .= "<small>" . $this->date . "</small>";
+        $html .= "<small> Like : " . $this->like . "</small>";
+
+        return $html;
     }
 
 
