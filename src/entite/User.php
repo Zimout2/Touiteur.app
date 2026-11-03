@@ -9,11 +9,12 @@ class User {
     protected int $nb_touile;
     protected array $liste_suivie;
     protected array $liste_touite;
+    protected array $liste_touite_liker;
     protected array $liste_tag;
     protected array $liste_follow;
     protected int $id;
 
-    public function __construct(string $name, string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag) {
+    public function __construct(string $name, string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker) {
         $this->name = $name;
         $this->prenom = $prenom;
         $this->email = $email;
@@ -23,6 +24,7 @@ class User {
         $this->liste_touite = $liste_touite;
         $this->liste_tag = $liste_tag;
         $this->liste_suivie = $liste_suivie;
+        $this->liste_touite_liker = $liste_touite_liker;
     }
     public function getName(): string {
         return $this->name;
@@ -74,5 +76,11 @@ class User {
     }
     public function setListeFollow(array $liste_follow): void {
         $this->liste_follow = $liste_follow;
+    }
+    public function getListe_touites_liker(): array {
+        return $this->liste_touite_liker;
+    }
+    public function setListe_touites_liker(array $liste_touite_liker): void {
+        $this->liste_touite_liker = $liste_touite_liker;
     }
 }
