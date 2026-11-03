@@ -3,7 +3,6 @@
 namespace touiteur\entite;
 
 class User {
-    protected string $name;
     protected string $prenom;
     protected string $email;
     protected int $nb_touile;
@@ -14,8 +13,7 @@ class User {
     protected array $liste_follow;
     protected int $id;
 
-    public function __construct(string $name, string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker) {
-        $this->name = $name;
+    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker) {
         $this->prenom = $prenom;
         $this->email = $email;
         $this->nb_touile = $nb_touile;
@@ -25,12 +23,6 @@ class User {
         $this->liste_tag = $liste_tag;
         $this->liste_suivie = $liste_suivie;
         $this->liste_touite_liker = $liste_touite_liker;
-    }
-    public function getName(): string {
-        return $this->name;
-    }
-    public function setName(string $name): void {
-        $this->name = $name;
     }
     public function getPrenom(): string {
         return $this->prenom;
