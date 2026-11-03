@@ -38,10 +38,10 @@ class User {
     public function setEmail(string $email): void {
         $this->email = $email;
     }
-    public function getNbTouile(): int {
+    public function getNbTouite(): int {
         return $this->nb_touile;
     }
-    public function setNbTouile(int $nb_touile): void {
+    public function setNbTouite(int $nb_touile): void {
         $this->nb_touile = $nb_touile;
     }
     public function getListeSuivie(): array {
