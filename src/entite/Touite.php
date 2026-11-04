@@ -1,6 +1,6 @@
 <?php
 
-namespace touiteur\touite;
+namespace touiteur\entite;
 
 use touiteur\entite\User;
 
