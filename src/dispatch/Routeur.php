@@ -28,7 +28,7 @@ class Routeur{
     }
 
     public function renderPage(string $html): string {
-        return <<<'HTML'
+        return <<<HTML
         <!DOCTYPE html>
         <html lang="fr">
         <head> 
@@ -37,13 +37,18 @@ class Routeur{
         </head>
         <body>
             <h1>Touiteur</h1>
-            <a href="?action=accueil">Accueil</a>
-            <p></p>
-            <a href="?action=publication">Publier un touite</a>
-            <p></p>
-            <a href="?action=tag">Tag</a>
-            <p></p>
-            <a href="?action=utilisateur">Utilisateur</a>
+            <nav>
+                <a href="?action=accueil">Accueil</a>
+                <p></p>
+                <a href="?action=publication">Publier un touite</a>
+                <p></p>
+                <a href="?action=tag">Tag</a>
+                <p></p>
+                <a href="?action=utilisateur">Utilisateur</a>
+            </nav>
+            <div id="content">
+                $html
+            </div>
 
         </body>
         </html>
