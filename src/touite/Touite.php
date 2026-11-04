@@ -11,7 +11,7 @@ class Touite {
     protected string $date;
     protected int $likes;
     protected int $dislikes;
-    protected int $id_tag;
+    protected int $id_tag; //! Erreur
 
     public function __construct(int $id, string $message, int $id_user, int $date, int $likes, int $dislikes, int $id_tag) {
         $this->id = $id;

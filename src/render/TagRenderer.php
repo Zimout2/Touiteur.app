@@ -7,7 +7,7 @@ namespace touiteur\render;
 use touiteur\entite\Tag;
 
 
-class UserRenderer implements Renderer {
+class TagRenderer implements Renderer {
 
 
 
