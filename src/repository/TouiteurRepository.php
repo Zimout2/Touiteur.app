@@ -9,12 +9,13 @@ class TouiteurRepository{
     private static array $config = [];
 
     private function __construct(array $conf) {
-        $dsn = "{$conf['driver']}:host={$conf['host']};dbname={$conf['database']};charset=utf8mb4";
+        $dsn = "{$conf['driver']}:host={$conf['host']};dbname={$conf['database']}";
         $this->pdo = new PDO($dsn, $conf['username'], $conf['password'], [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_STRINGIFY_FETCHES => false,
         ]);
+        $this->pdo->prepare('SET NAMES \'UTF8\'')->execute();
     }
 
     public static function setConfig(string $file): void {
@@ -27,8 +28,8 @@ class TouiteurRepository{
 
     public static function getInstance(): TouiteurRepository{
 
-        if (self::$instance === null) {
-            if (empty(self::$config)) {
+        if (is_null(self::$instance)) {
+            if (count(self::$config) === 0) {
                 throw new \Exception("Configuration BD non définie (appeler setConfig)");
             }
             self::$instance = new TouiteurRepository(self::$config);
@@ -49,28 +50,30 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
 
-        $result = $stmt->fetch();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
     }
 
-    Public function addTouit(string $texte, int $idUser): int {
+    public function addTouit(string $texte, int $idUser): int {
         $query = "INSERT INTO Touite (message, date, likes, id_user) VALUES (:message, NOW(), 0, :id_user)";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['message' => $texte, 'id_user' => $idUser]);
-        return (int)$this->pdo->lastInsertId();
+        return $this->pdo->lastInsertId();
     }
     
     public function addTagToTouit(int $idTouit , string $tagNom):void {
-        $stmt = $this->pdo->prepare("Select id_tag from Touite where id_touite =:id_touite");
-        $stmt ->execute(['id_touite' => $idTouit]);
-        $row = $stmt->fetch();
-        $tagArray = ($row && !empty($row['id_tag'])) ? json_decode($row['id_tag'], true) : [];
-
-        if (!in_array($tagNom, $tagArray)) {
-            $tagArray[] = $tagNom;
-        }
-        $stmtUpdate = $this->pdo->prepare("UPDATE Touite SET id_tag = :id_tag WHERE id_touite = :id_touite");
-        $stmtUpdate ->execute(['tags' => json_encode($tagArray), 'id_touite' => $idTouit]);
+        $query = "INSERT INTO Tag (libellle, id_tuites) VALUES (:libelle, :id_touite)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['libelle' => $tagNom, 'id_touite' => $idTouit]);
+    }
+    public function getTouites(): array{
+        $query = "SELECT t.id_touite, t.message, t.date, u.id_user, u.prenom
+                  FROM Touite t
+                  JOIN User u ON t.id_user = u.id_user
+                  ORDER BY t.date DESC";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
 }
