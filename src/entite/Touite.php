@@ -11,9 +11,9 @@ class Touite {
     protected string $date;
     protected ?int $likes;
     protected ?int $dislikes;
-    protected array $tags;
+    protected ?array $tags;
 
-    public function __construct(int $id, string $message, User $user, string $date, ?int $likes, array $tags){
+    public function __construct(int $id, string $message, User $user, string $date, ?int $likes, ?array $tags){
         $this->id = $id;
         $this->message = $message;
         $this->user = $user;
@@ -88,11 +88,11 @@ class Touite {
         }
     }
 
-    public function getTags(): array{
+    public function getTags(): ?array{
         $this->hashtag($this->message);
         return $this->tags;
     }
-    public function setTags(array $tags){
+    public function setTags(?array $tags){
         $this->tags = $tags;
     }
 
