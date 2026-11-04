@@ -43,7 +43,7 @@ class PostTouiteur extends Action {
             $repo->addTagToTouit($idTouit,$tagNom);
         }
 
-        return "<p>Votre touite a été publié avec succès ! <a href=\"?action=default\">Retour à l'accueil</a></p>";
+        return "<p>Votre touite a été publié avec succès ! <a href=\"?action=accueil\">Retour à l'accueil</a></p>";
     }
 
 
