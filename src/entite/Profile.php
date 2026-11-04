@@ -5,24 +5,24 @@ namespace touiteur\entite;
 use touiteur\repository\TouiteurRepository;
 
 class Profile {
-    protected int $nb_follower;
-    protected int $nb_following;
-    protected int $nb_suivis;
+    protected ?int $nb_follower;
+    protected ?int $nb_following;
+    protected ?int $nb_suivis;
     protected Touite $tuite;
 
-    public function __construct(Touite $tuite, int $nb_follower, int $nb_following, int $nb_suivis){
+    public function __construct(Touite $tuite, ?int $nb_follower, ?int $nb_following, ?int $nb_suivis){
         $this->tuite = $tuite;
         $this->nb_follower = $nb_follower;
         $this->nb_following = $nb_following;
         $this->nb_suivis = $nb_suivis;
     }
-    public function getNbFollower(): int {
+    public function getNbFollower(): ?int {
         return $this->nb_follower;
     }
-    public function getNbFollowing(): int {
+    public function getNbFollowing(): ?int {
         return $this->nb_following;
     }
-    public function getNbSuivis(): int {
+    public function getNbSuivis(): ?int {
         return $this->nb_suivis;
     }
     public function getTuite(): Touite {
