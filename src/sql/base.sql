@@ -1,8 +1,7 @@
 drop table Tag;
-drop table SuivieUser;
-drop table SuivieTag;
-drop table Liker;
-drop table Follow;
+drop table User2User;
+drop table Touite2Tag;
+drop table Touite2User;
 drop table User;
 drop table Touite;
 
@@ -15,27 +14,22 @@ create table Tag (
   primary key (id_tag)
 );
 
-create table SuvieUser (
+create table User2User (
     id_user number(100),
     id_suivie number(100),
     foreign key (id_suivie, id_user) -- references
 );
 
-create table SuivieTag (
+create table Touite2Tag (
     id_user number(100),
     id_tag number(100),
     foreign key (id_user, id_tab) -- references
 );
 
-create table Liker (
+create table Touite2User (
     id_user number(100),
     id_touite number(100),
     foreign key (id_user, id_tuite) -- references
-);
-
-create table Follow (
-    id_user number(100),
-    foreign key (id_user)
 );
 
 create table User (
