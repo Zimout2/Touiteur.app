@@ -17,11 +17,11 @@ class PostTouiteur extends Action {
                 </form>
                 HTML;
         }
-        $texteNomFiltre = $_POST['Texte'] ?? '';
-        if ($texteNomFiltre === '' || strlen($texteNomFiltre) > 235) {
+        $texteNonFiltre = $_POST['Texte'] ?? '';
+        if ($texteNonFiltre === '' || strlen($texteNonFiltre) > 235) {
             return "<p>Erreur : Le texte du touite est vide ou dépasse 235 caractères.</p>";
         }
-        $texte = filter_var($texteNomFiltre,FILTER_SANITIZE_SPECIAL_CHARS);
+        $texte = filter_var($texteNonFiltre,FILTER_SANITIZE_SPECIAL_CHARS);
 
         //pour recup le tag
         $mots = explode(' ', $texteNonFiltre);
