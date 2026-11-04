@@ -37,14 +37,13 @@ class Routeur{
         </head>
         <body>
             <h1>Touiteur</h1>
-            <a href="?Accueil">Accueil</a>
+            <a href="?action=accueil">Accueil</a>
             <p></p>
-            <a href="?Publication">Publier un touite</a>
+            <a href="?action=publication">Publier un touite</a>
             <p></p>
-            <a href="?Tag">Tag</a>
+            <a href="?action=tag">Tag</a>
             <p></p>
-            <a href="?Utilisateur">Utilisateur</a>
-
+            <a href="?action=utilisateur">Utilisateur</a>
         </body>
         </html>
         HTML; 

@@ -2,12 +2,14 @@
 
 namespace touiteur\action; 
 
+use touiteur\repository\TouiteurRepository;
+
 class DisplayTouit extends Action {
 
     public function execute(): string{
-        $id = filter_var($_GET['id']?? null , FILTER_VALIDE_INT);
+        $id = filter_var($_GET['id']?? null , FILTER_VALIDATE_INT);
 
-        if(!$id) {
+        if(!$id) {  
             return "<p>Erreur : Identifiant de touite invalide ou manquant.</p>";
         }
 
