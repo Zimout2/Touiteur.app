@@ -10,16 +10,15 @@ class Touite {
     protected User $user;
     protected string $date;
     protected ?int $likes;
-    protected ?int $dislikes;
     protected ?array $tags;
 
-    public function __construct(int $id, string $message, User $user, string $date, ?int $likes, ?array $tags){
+    public function __construct(int $id, string $message, User $user, string $date, ?int $likes){
         $this->id = $id;
         $this->message = $message;
         $this->user = $user;
         $this->date = $date;
         $this->likes = $likes;
-        $this->tags = $tags;
+        $this->tags = [];
     }
 
     public function getId(): int{
