@@ -54,6 +54,14 @@ class TouiteurRepository{
         return $result ?: null;
     }
 
+    public function getTagById(int $id) : array {
+        $query = "SELECT T.id_tag AS id, T.id_tuites, T.libellle AS texte FROM tag T WHERE T.id_tag = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]); // Utilisation de 'id' pour correspondre à :id
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: [];
+    }
+
     public function addTouit(string $texte, int $idUser): int {
         $query = "INSERT INTO Touite (message, date, likes, id_user) VALUES (:message, NOW(), 0, :id_user)";
         $stmt = $this->pdo->prepare($query);
