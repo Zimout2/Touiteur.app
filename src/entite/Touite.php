@@ -56,22 +56,6 @@ class Touite {
         $this->likes = $likes;
     }
 
-    public function getDislikes(): ?int{
-        return $this->dislikes;
-    }
-    public function setDislikes(?int $dislikes): void{
-        $this->dislikes = $dislikes;
-    }
-
-    public function estLike(): bool{
-        $listeLikesUsr = $this->user->getListe_touites_liker();
-        return in_array($this, $listeLikesUsr);
-    }
-
-    public function estDislike(): bool{
-        $listeDislikesUsr = $this->user->getListe_touites_disliker();
-        return in_array($this, $listeDislikesUsr);
-    }
 
     protected function hashtag(string $msg): void{
         for ($i = 0; $i <= strlen($msg) ; $i++) {
@@ -103,14 +87,14 @@ class Touite {
 
 
     public function addListeTag (int $idTag): void {
-        if (!in_array($idTag, $this->liste_tag) {
+        if (!in_array($idTag, $this->liste_tag)) {
             $this->liste_tag[] = $idTag;
         }
     }
 
     public function removeListeTag (int $idTag): void {
-        if (in_array($idTag, $this->liste_tag) {
-            unset($liste_tag[array_search($idTag, $liste_tag)]);
+        if (in_array($idTag, $this->liste_tag)) {
+            unset($liste_tag[array_search($idTag, $this->liste_tag)]);
         }
     }
 

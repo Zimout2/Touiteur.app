@@ -83,31 +83,31 @@ class User {
     //! Ajouter les méthodes d'ajout
 
     public function addListeFollow (int $idUser): void {
-        if (!in_array($idUser, $this->liste_follow) {
+        if (!in_array($idUser, $this->liste_follow)) {
             $this->liste_follow[] = $idUser;
         }
     }
 
     public function addListeTouite (int $idTouite): void {
-        if (!in_array($idTouite, $this->liste_touite) {
+        if (!in_array($idTouite, $this->liste_touite)) {
             $this->liste_touite[] = $idTouite;
         }
     }
 
     public function addListeTag (int $idTag): void {
-        if (!in_array($idTag, $this->liste_tag) {
+        if (!in_array($idTag, $this->liste_tag)) {
             $this->liste_tag[] = $idTag;
         }
     }
 
     public function addListeSuivi (int $idUser): void {
-        if (!in_array($idUser, $this->liste_suivie) {
+        if (!in_array($idUser, $this->liste_suivie)) {
             $this->liste_suivie[] = $idUser;
         }
     }
 
     public function addListeTouiteLike (int $idTouite): void {
-        if (!in_array($idTouite, $this->liste_touite_liker) {
+        if (!in_array($idTouite, $this->liste_touite_liker)) {
             $this->liste_touite_liker[] = $idTouite;
         }
     }
@@ -118,32 +118,32 @@ class User {
 
 
     public function removeListeFollow (int $idUser): void {
-        if (in_array($idUser, $this->liste_follow) {
-            unset($liste_follow[array_search($idUser, $liste_follow)]);
+        if (in_array($idUser, $this->liste_follow)) {
+            unset($liste_follow[array_search($idUser, $this->liste_follow)]);
         }
     }
 
     public function removeListeTouite (int $idTouite): void {
-        if (in_array($idTouite, $this->liste_touite) {
-            unset($liste_touite[array_search($idTouite, $liste_touite)]);
+        if (in_array($idTouite, $this->liste_touite)) {
+            unset($liste_touite[array_search($idTouite, $this->liste_touite)]);
         }
     }
 
     public function removeListeTag (int $idTag): void {
-        if (in_array($idTag, $this->liste_tag) {
-            unset($liste_tag[array_search($idTag, $liste_tag)]);
+        if (in_array($idTag, $this->liste_tag)) {
+            unset($liste_tag[array_search($idTag, $this->liste_tag)]);
         }
     }
 
     public function removeListeSuivi (int $idUser): void {
-        if (in_array($idUser, $this->liste_suivie) {
-            unset($liste_suivie[array_search($idUser, $liste_suivie)]);
+        if (in_array($idUser, $this->liste_suivie)) {
+            unset($liste_suivie[array_search($idUser, $this->liste_suivie)]);
         }
     }
 
     public function removeListeTouiteLike (int $idTouite): void {
-        if (in_array($idTouite, $this->liste_touite_liker) {
-            unset($liste_touite_liker[array_search($idTouite, $liste_touite_liker)]);
+        if (in_array($idTouite, $this->liste_touite_liker)) {
+            unset($liste_touite_liker[array_search($idTouite, $this->liste_touite_liker)]);
         }
     }
 

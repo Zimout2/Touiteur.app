@@ -38,8 +38,8 @@ class Tag {
     public function getListe_Touites(): array {
         return $this->liste_touites;
     }
-    public function setListeSuivie(array $liste_tuites): void {
-        $this->liste_touites = $liste_tuites;
+    public function setListeSuivie(array $liste_suivi): void {
+        $this->liste_suivie = $liste_suivi;
     }
     public function setListeTouites(array $liste_touites): void {
         $this->liste_touites = $liste_touites;
@@ -62,34 +62,33 @@ class Tag {
         return false;
     }
 
-    //! Ajouter des fonctions pour ajouter, etc
 
     public function addListeSuivi (int $idUser): void {
-        if (!in_array($idUser, $this->liste_suivie) {
+        if (!in_array($idUser, $this->liste_suivie)) {
             $this->liste_suivie[] = $idUser;
         }
     }
 
     public function addListeTouite (int $idTouite): void {
-        if (!in_array($idTouite, $this->liste_touites) {
+        if (!in_array($idTouite, $this->liste_touites)) {
             $this->liste_touitse[] = $idTouite;
         }
     }
 
     public function removeListeSuivi (int $idUser): void {
-        if (in_array($idUser, $this->liste_suivie) {
-            unset($liste_suivie[array_search($idUser, $liste_suivie)]);
+        if (in_array($idUser, $this->liste_suivie)) {
+            unset($liste_suivie[array_search($idUser, $this->liste_suivie)]);
         }
     }
 
     public function removeListeTouite (int $idTouite): void {
-        if (in_array($idTouite, $this->liste_touites) {
-            unset($liste_touites[array_search($idTouite, $liste_touites)]);
+        if (in_array($idTouite, $this->liste_touites)) {
+            unset($liste_touites[array_search($idTouite, $this->liste_touites)]);
         }
     }
 
     public function isListeSuivi (int $idUser): bool {
-        return (in_array($idUser, $this->liste_suivi));
+        return (in_array($idUser, $this->liste_suivie));
     }
 
     public function isListeTouite (int $idTouite): bool {
