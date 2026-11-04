@@ -98,4 +98,27 @@ class Touite {
     public function __toString(): string {
         return json_encode(get_object_vars($this));
     }
+
+
+
+
+    public function addListeTag (int $idTag): void {
+        if (!in_array($idTag, $this->liste_tag) {
+            $this->liste_tag[] = $idTag;
+        }
+    }
+
+    public function removeListeTag (int $idTag): void {
+        if (in_array($idTag, $this->liste_tag) {
+            unset($liste_tag[array_search($idTag, $liste_tag)]);
+        }
+    }
+
+    public function isListeTag (int $idTag): bool {
+        return (in_array($idTag, $this->liste_tag));
+    }
+
+
+
+
 }

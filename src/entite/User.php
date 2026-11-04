@@ -3,30 +3,27 @@
 namespace touiteur\entite;
 
 class User {
-    protected string $prenom;
-    protected string $nom;
-    protected string $email;
-    protected int $nb_touile;
-    protected array $liste_suivie;
-    protected array $liste_touite;
-    protected array $liste_touite_liker;
-    protected array $liste_touite_disliker;
-    protected array $liste_tag;
-    protected array $liste_follow;
-    protected int $id;
 
-    public function __construct(string $prenom, string $email, int $nb_touile, int $id, array $liste_follow, array $liste_suivie, array $liste_touite, array $liste_tag, array $liste_touite_liker, array $liste_touite_disliker, string $nom) {
+    private int $id;
+    private string $prenom;
+    private string $email;
+    private int $nb_touite;
+    private array $liste_suivie;
+    private array $liste_follow;
+    private array $liste_touite;
+    private array $liste_touite_liker;
+    private array $liste_tag;
+
+    public function __construct(string $prenom, string $email, int $id) {
+        $this->id = $id;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->nb_touile = $nb_touile;
-        $this->id = $id;
-        $this->liste_follow = $liste_follow;
-        $this->liste_touite = $liste_touite;
-        $this->liste_tag = $liste_tag;
-        $this->liste_suivie = $liste_suivie;
-        $this->liste_touite_liker = $liste_touite_liker;
-        $this->liste_touite_disliker = $liste_touite_disliker;
-        $this->nom = $nom;
+        $this->nb_touite = count($this->liste_touite);
+        $this->liste_follow = [];
+        $this->liste_touite = [];
+        $this->liste_tag = [];
+        $this->liste_suivie = [];
+        $this->liste_touite_liker = [];
     }
     public function getPrenom(): string {
         return $this->prenom;
@@ -41,10 +38,12 @@ class User {
         $this->email = $email;
     }
     public function getNbTouite(): int {
-        return $this->nb_touile;
+        return $this->nb_touite;
     }
-    public function setNbTouite(int $nb_touile): void {
-        $this->nb_touile = $nb_touile;
+    public function setNbTouite(int $nb_touite): void {
+        if ($nb_touite+1 == count($this->liste_touite)) {
+            $this->nb_touite = $nb_touite;
+        }
     }
     public function getListeSuivie(): array {
         return $this->liste_suivie;
@@ -79,16 +78,96 @@ class User {
     public function setListe_touites_liker(array $liste_touite_liker): void {
         $this->liste_touite_liker = $liste_touite_liker;
     }
-    public function getListe_touites_disliker(): array {
-        return $this->liste_touite_liker;
+
+
+    //! Ajouter les méthodes d'ajout
+
+    public function addListeFollow (int $idUser): void {
+        if (!in_array($idUser, $this->liste_follow) {
+            $this->liste_follow[] = $idUser;
+        }
     }
-    public function setListe_touites_disliker(array $liste_touite_disliker): void {
-        $this->liste_touite_disliker = $liste_touite_disliker;
+
+    public function addListeTouite (int $idTouite): void {
+        if (!in_array($idTouite, $this->liste_touite) {
+            $this->liste_touite[] = $idTouite;
+        }
     }
-    public function getNom(): string {
-        return $this->nom;
+
+    public function addListeTag (int $idTag): void {
+        if (!in_array($idTag, $this->liste_tag) {
+            $this->liste_tag[] = $idTag;
+        }
     }
-    public function setNom(string $nom): void {
-        $this->nom = $nom;
+
+    public function addListeSuivi (int $idUser): void {
+        if (!in_array($idUser, $this->liste_suivie) {
+            $this->liste_suivie[] = $idUser;
+        }
     }
+
+    public function addListeTouiteLike (int $idTouite): void {
+        if (!in_array($idTouite, $this->liste_touite_liker) {
+            $this->liste_touite_liker[] = $idTouite;
+        }
+    }
+
+
+
+
+
+
+    public function removeListeFollow (int $idUser): void {
+        if (in_array($idUser, $this->liste_follow) {
+            unset($liste_follow[array_search($idUser, $liste_follow)]);
+        }
+    }
+
+    public function removeListeTouite (int $idTouite): void {
+        if (in_array($idTouite, $this->liste_touite) {
+            unset($liste_touite[array_search($idTouite, $liste_touite)]);
+        }
+    }
+
+    public function removeListeTag (int $idTag): void {
+        if (in_array($idTag, $this->liste_tag) {
+            unset($liste_tag[array_search($idTag, $liste_tag)]);
+        }
+    }
+
+    public function removeListeSuivi (int $idUser): void {
+        if (in_array($idUser, $this->liste_suivie) {
+            unset($liste_suivie[array_search($idUser, $liste_suivie)]);
+        }
+    }
+
+    public function removeListeTouiteLike (int $idTouite): void {
+        if (in_array($idTouite, $this->liste_touite_liker) {
+            unset($liste_touite_liker[array_search($idTouite, $liste_touite_liker)]);
+        }
+    }
+
+
+
+
+    public function isListeFollow (int $idUser): bool {
+        return (in_array($idUser, $this->liste_follow));
+    }
+
+    public function isListeTouite (int $idTouite): bool {
+        return (in_array($idTouite, $this->liste_touite));
+    }
+
+    public function isListeTag (int $idTag): bool {
+        return (in_array($idTag, $this->liste_tag));
+    }
+
+    public function isListeSuivi (int $idUser): bool {
+        return (in_array($idUser, $this->liste_suivie));
+    }
+
+    public function isListeTouiteLike (int $idTouite): bool {
+        return (in_array($idTouite, $this->liste_touite_liker));
+    }
+
 }
