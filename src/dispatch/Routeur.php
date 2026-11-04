@@ -7,7 +7,7 @@ class Routeur{
 
     public function __construct()
     {
-        $this->action = $_GET['action'] ?? 'default';
+        $this->action = $_GET['action'] ?? 'accueil';
     }
 
     public function addRoute(string $action, string $actionClass): Routeur
