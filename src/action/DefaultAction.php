@@ -7,7 +7,7 @@ class DefaultAction extends Action
     public function execute(): string {
         $html = "";
         if($this ->http_method === 'GET'){
-            $html .= "<h1>TOUITER</h1>";
+            $html .= "<h1>TOUITER                         Utilisateur</h1>";
             $html .= "<p></p>";
             $html .= "<a href='?Accueil'>Accueil</a>";
             $html .= "<p></p>";
