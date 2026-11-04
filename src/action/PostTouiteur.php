@@ -24,8 +24,16 @@ class PostTouiteur extends Action {
         $texte = filter_var($texteNomFiltre,FILTER_SANITIZE_SPECIAL_CHARS);
 
         //pour recup le tag
-        preg_match_all('/#(\w+)/u',$texte ,$matches);
-        $tags = array_unique($matches[1]);
+        $mots = explode(' ', $texteNonFiltre);
+        $tags = [];
+        foreach ($mots as $mot) {
+        if ($mot !== '' && $mot[0] === '#') {
+            $tag = substr($mot, 1);              
+            if ($tag !== '') {
+            $tags[$tag] = $tag;   
+            }
+        }
+    }
 
         //enregistre dans la base de donée le tag
         $repo = TouiteurRepository::getInstance();
