@@ -27,8 +27,6 @@ class DisplayUser extends Action{
 
 
                 <div class="touites-user">
-
-
                 </div>
             </main>
         </div>

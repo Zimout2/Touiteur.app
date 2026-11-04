@@ -37,12 +37,12 @@ class Profile {
         return "".$this->getTuite()->getTags();
     }
 
-    public function getNombre_tuites(): int {
+    public function getNombre_tuites(): string {
         $cpt_tuite = count($this->getTuite());
         return "<p>Votre nombre de tuite est actuellement de : ".$cpt_tuite."</p>";
     }
 
-    public function getNombre_suivis(): int {
+    public function getNombre_suivis(): string {
         return "<p>Vous avec actuellement : ".$this->nb_suivis." personnes qui vous suivent</p>";
     }
 }
