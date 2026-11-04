@@ -10,14 +10,14 @@ class PostTouiteur extends Action {
         if($this ->http_method === 'GET'){
             return <<<HTML
                 <h2> Poster le touite </h2>
-                <form method = "post" action ="?action=post-touit" enctype="multipart/form-data">
+                <form method = "post" action ="?action=publication">
                     <label>vous pouvez ecrire un totale de 235 caractères max </label>
                     <textarea id="texte" name="texte" rows="4" cols="50" maxlength="235" required></textarea>
                     <button type="submit">Publier</button>
                 </form>
                 HTML;
         }
-        $texteNonFiltre = $_POST['Texte'] ?? '';
+        $texteNonFiltre = $_POST['texte'] ?? '';
         if ($texteNonFiltre === '' || strlen($texteNonFiltre) > 235) {
             return "<p>Erreur : Le texte du touite est vide ou dépasse 235 caractères.</p>";
         }
