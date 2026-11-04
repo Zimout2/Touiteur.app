@@ -18,4 +18,4 @@ $app->addRoute('publication', PostTouiteur::class);
 $app->addRoute('tag', TagTouiteur::class);
 $app->addRoute('utilisateur', UserTouiteur::class);
 
-$app->run();
+echo $app->run();
