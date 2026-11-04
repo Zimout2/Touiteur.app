@@ -43,7 +43,8 @@ class Routeur{
             <p></p>
             <a href="?action=tag">Tag</a>
             <p></p>
-            <a href="?action=utilisateur">Utilisateur</a>
+            <a href="?Utilisateur">Utilisateur</a>
+
         </body>
         </html>
         HTML; 
