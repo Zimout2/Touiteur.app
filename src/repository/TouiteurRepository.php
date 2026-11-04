@@ -55,11 +55,32 @@ class TouiteurRepository{
     }
 
     public function getTagById(int $id) : array {
-        $query = "SELECT T.id_tag AS id, T.id_tuites, T.libellle AS texte FROM tag T WHERE T.id_tag = :id";
+        $query = "SELECT Ta.id_tag AS id, Ta.id_tuites, Ta.libellle AS texte FROM tag Ta, touite To WHERE Ta.id_touites = To.id_touites AND Ta.id_touite = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: [];
+    }
+
+    public function getTag() : array {
+        // On sélectionne l'ID et le libellé unique de chaque tag
+        $query = "SELECT DISTINCT libellle FROM tag WHERE libellle IS NOT NULL";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTouiteByTagLibelle(string $libelle) : array {
+        // Récupère TOUS les touites associés à ce libellé de tag
+        $query = "SELECT t.id_touite, t.message, t.date, u.prenom AS auteur 
+              FROM touite t
+              JOIN tag ta ON t.id_touite = ta.id_tuites
+              JOIN user u ON t.id_user = u.id_user
+              WHERE ta.libellle = :libelle";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['libelle' => $libelle]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
     public function addTouit(string $texte, int $idUser): int {
@@ -68,7 +89,6 @@ class TouiteurRepository{
         $stmt->execute(['message' => $texte, 'id_user' => $idUser]);
         return $this->pdo->lastInsertId();
     }
-    
     public function addTagToTouit(int $idTouit , string $tagNom):void {
         $query = "INSERT INTO Tag (libellle, id_tuites) VALUES (:libelle, :id_touite)";
         $stmt = $this->pdo->prepare($query);

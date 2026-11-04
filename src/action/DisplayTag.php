@@ -6,49 +6,52 @@ use touiteur\repository\TouiteurRepository;
 
 class DisplayTag extends Action {
 
-    public function execute(): string
-    {
-        $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
-
-        if (!$id) {
-            return "<p>Erreur : Identifiant de tag invalide ou manquant.</p>";
-        }
+    public function execute(): string {
 
         $repo = TouiteurRepository::getInstance();
-        $tag = $repo->getTagById($id);
+        $tag = $repo->getTag();
 
-        if (!$tag) {
+        if (empty($tag)) {
             return "<p>Erreur : Tag introuvable.</p>";
         }
 
-        // On extrait la valeur proprement dans une variable avant de l'afficher
-        $libelleTag = filter_var($tag['libellle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+        $html  = "";
+        $html .= "<div class='main-container'>";
+        $html .= "<h2>Liste de tous les tags et leurs touites</h2>";
 
+        foreach ($tag as $tags) {
+            $libelleTag = filter_var($tags['libellle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $touitesDuTag = $repo->getTouiteByTagLibelle($libelleTag);
+
+            $html .= "<div class='tag-container'>";
+            $html .= "<h2>Touites associés aux tags #{$libelleTag}</h2>";
+            if (empty($touitesDuTag)) {
+                $html .= "<p>Erreur : Tag introuvable.</p>";
+            } else {
+                foreach ($touitesDuTag as $touite) {
+                    $message = filter_var($touite['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $auteur = filter_var($touite["auteur"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $html .= "<div class='touite-tag'>";
+                    $html .= "<p>$auteur à Touiter : </p>";
+                    $html .= "<p>$message</p>";
+                    $html .= "</div>";
+                }
+            }
+        }
+        $html .= "</div>";
         return <<<HTML
         <style>
-            /* Conteneur de la liste */
-            .tag-list {
-                width: 50%;
-                margin: 20px auto;
-            }
-            .tag-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 0;
-                border-bottom: 1px solid #ddd;
+            .tag-container {
+                max-width: 600px;
+                margin: 0 auto; /* Centre le conteneur principal sur la page */
+                text-align: center; /* Centre le texte à l'intérieur */
+                font-family: Arial, sans-serif;
             }
         </style>
 
-        <div class="tag-list">
-            <h2>Détails du Tag</h2>
-            <div class="tag-item">
-                <span>Message :</span>
-                <span class="tag-name">#{$libelleTag}</span>
-            </div>                    
+        <div class='tag-container'>
+            {$html} <!-- Attention à ne pas réinjecter $html dans lui-même, adaptez selon votre variable finale -->
         </div>
-        <br>
-        <a href="?action=tag">← Retour</a>
         HTML;
     }
 }
