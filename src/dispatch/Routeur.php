@@ -7,7 +7,7 @@ class Routeur{
 
     public function __construct()
     {
-        $this->action = $_GET['action'] ?? 'default';
+        $this->action = $_GET['action'] ?? 'accueil';
     }
 
     public function addRoute(string $action, string $actionClass): Routeur
@@ -43,7 +43,7 @@ class Routeur{
             <p></p>
             <a href="?action=tag">Tag</a>
             <p></p>
-            <a href="?Utilisateur">Utilisateur</a>
+            <a href="?action=utilisateur">Utilisateur</a>
 
         </body>
         </html>

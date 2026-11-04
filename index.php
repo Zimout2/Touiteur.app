@@ -13,9 +13,9 @@ use touiteur\action\UserTouiteur;
 
 $app = new Routeur();
 
-$app->addRoute('default', DefaultAction::class);
-$app->addRoute('Poste_tuite', PostTouiteur::class);
-$app->addRoute('tag_tuite', TagTouiteur::class);
-$app->addRoute('Utilisateur', UserTouiteur::class);
+$app->addRoute('accueil', DefaultAction::class);
+$app->addRoute('publication', PostTouiteur::class);
+$app->addRoute('tag', TagTouiteur::class);
+$app->addRoute('utilisateur', UserTouiteur::class);
 
-echo $app->run();
+$app->run();
