@@ -10,6 +10,9 @@ use touiteur\action\DisplayTouit;
 use touiteur\action\PostTouiteur;
 use touiteur\action\TagTouiteur;
 use touiteur\action\UserTouiteur;
+use touiteur\repository\TouiteurRepository;
+
+TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
 $app = new Routeur();
 
