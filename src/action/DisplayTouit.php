@@ -1,6 +1,6 @@
 <?php
 
-namespace tuoiteur\action; 
+namespace touiteur\action; 
 
 class DisplayTouit extends Action {
 
@@ -16,8 +16,8 @@ class DisplayTouit extends Action {
         $touit = $repo->getTouitById($id);
 
         $html = "<div class=\"touit-detail\">";
-        $html .= "<h2>Touite de " . htmlspecialchars($touit['auteur']) . "</h2>";
-        $html .= "<p class=\"texte\">" . nl2br(htmlspecialchars($touit['texte'])) . "</p>";
+        $html .= "<h2>Touite de " . filter_var($touit['auteur'],) . "</h2>";
+        $html .= "<p class=\"texte\">" . nl2br(filter_var($touit['texte'], FILTER_SANITIZE_STRING)) . "</p>";
         $html .= "<div class=\"touit-meta\">";
         $html .= "<p>Publié le : " . $touit['date_publication'] . "</p>";
         $html .= "<p>Score : <strong>" . $touit['score'] . "</strong></p>";

@@ -10,7 +10,7 @@ class TouiteurRepository{
 
     private function __construct(array $conf) {
         $dsn = "{$conf['driver']}:host={$conf['host']};dbname={$conf['database']};charset=utf8mb4";
-        $this->pdo = new PDO($dsn, $config['username'], $config['password'], [
+        $this->pdo = new PDO($dsn, $conf['username'], $conf['password'], [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_STRINGIFY_FETCHES => false,
@@ -20,7 +20,7 @@ class TouiteurRepository{
     public static function setConfig(string $file): void {
         $conf = parse_ini_file($file);
         if ($conf === false) {
-            throw new Exception("Erreur de lecture du fichier de configuration : $file");
+            throw new \Exception("Erreur de lecture du fichier de configuration : $file");
         }
         self::$config = $conf;
     }
@@ -29,7 +29,7 @@ class TouiteurRepository{
 
         if (self::$instance === null) {
             if (empty(self::$config)) {
-                throw new Exception("Configuration BD non définie (appeler setConfig)");
+                throw new \Exception("Configuration BD non définie (appeler setConfig)");
             }
             self::$instance = new TouiteurRepository(self::$config);
         }
@@ -64,13 +64,13 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare("Select id_tag from Touite where id_touite =:id_touite");
         $stmt ->execute(['id_touite' => $idTouit]);
         $row = $stmt->fetch();
-        $tagArray = ($row && !empty($row[id_tag])) ? json_decode($row['id_tag'], true) : [];
+        $tagArray = ($row && !empty($row['id_tag'])) ? json_decode($row['id_tag'], true) : [];
 
-        if (!in_array($tagNom,$tagsArray)){
+        if (!in_array($tagNom, $tagArray)) {
             $tagArray[] = $tagNom;
         }
         $stmtUpdate = $this->pdo->prepare("UPDATE Touite SET id_tag = :id_tag WHERE id_touite = :id_touite");
-        $stmtUpdate ->execute(['tags' => json_encode($tagArray), 'id_touite' => $idT    ouit]);
+        $stmtUpdate ->execute(['tags' => json_encode($tagArray), 'id_touite' => $idTouit]);
     }
 
 }
