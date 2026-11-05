@@ -9,19 +9,18 @@ class DisplayUtilisateur extends Action {
 
     public function execute(): string {
         $repo = TouiteurRepository::getInstance();
-        $user = $repo->getUser();
-        if (empty($user)) {
+        $user_list = $repo->getUsersTriFollowers();
+        if (empty($user_list)) {
             return "<p>Erreur : Utilisateur introuvable.</p>";
         }
         $html  = "";
         $html .= "<div class='main-container'>";
         $html .= "<h2>Liste de tous les Utilisateurs</h2>";
-        foreach ($user as $users) {
-            $nbfollower = filter_var($users["nbfollower"], FILTER_SANITIZE_NUMBER_INT);
-            $nbsuivie = $repo->getFollowers($users["idUser"]);
+        foreach ($user_list as $users) {
+            $prenom = filter_var($users["prenom"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $nb_followers = $users['nb_followers'] ?? 0;
             $html .= "<div class='touite-tag'>";
-            $html .= "<p>Nombre de followers : $nbfollower</p>";
-            $html .= "<p>Nombre de suivies : $nbsuivie</p>";
+            $html .= "<p>$prenom - Follower : $nb_followers</p>";
             $html .= "</div>";
         }
         $html .= "</div>";
