@@ -91,14 +91,10 @@ class TouiteurRepository{
     }
 
     public function addTouit(string $texte, int $idUser): int {
-        
-        $stmt = $this->pdo->prepare("SELECT MAX(idTouite) FROM Touite");
-        $stmt->execute();
-        $idTouite = $stmt->fetchColumn() + 1;
+        $stmt = $this->pdo->prepare("INSERT INTO Touite (message, dateTouite, idUser) VALUES (:message, NOW(), :idUser)");
+        $stmt->execute(['message' => $texte, 'idUser' => $idUser]);
+        $idTouite = $this->pdo->lastInsertId();  
 
-        $query = "INSERT INTO Touite (idTouite, message, dateTouite, likeTouite, idUser) VALUES (:idTouite, :message, NOW(), 0, :idUser)";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['idTouite' => $idTouite, 'message' => $texte, 'idUser' => $idUser]);
         $stmt = $this->pdo->prepare("UPDATE Users SET nbTouite = nbTouite + 1 WHERE idUser = :idUser");
         $stmt->execute(['idUser' => $idUser]);
         return $idTouite;
@@ -114,12 +110,9 @@ class TouiteurRepository{
             $idTag = $row['idTag'];
         }else{
             //sinon on le crée
-            $stmt = $this->pdo->prepare("SELECT MAX(idTag) FROM Tag");
-            $stmt->execute();
-            $idTag = $stmt->fetchColumn() + 1;
-
-            $stmt = $this->pdo->prepare("INSERT INTO Tag (idTag, libelle) VALUES (:idTag, :libelle)");
-            $stmt->execute(['idTag' => $idTag, 'libelle' => $tagNom]);
+            $stmt = $this->pdo->prepare("INSERT INTO Tag (libelle) VALUES (:libelle)");
+            $stmt->execute(['libelle' => $tagNom]);
+            $idTag = $this->pdo->lastInsertId();
             
         }
         //on le relie au tuite
@@ -153,7 +146,7 @@ class TouiteurRepository{
 
     public function addUser(string $prenom, string $email): int
     {
-        $stmt = $this->pdo->prepare("INSERT INTO User (prenom, email) VALUES (:prenom, :email)");
+        $stmt = $this->pdo->prepare("INSERT INTO Users (prenom, email) VALUES (:prenom, :email)");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         return $this->pdo->lastInsertId();
     }
