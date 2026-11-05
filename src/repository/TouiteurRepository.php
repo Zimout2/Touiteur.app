@@ -190,6 +190,22 @@ class TouiteurRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function followtagUser(int $idUser, int $idTag) : void {
+        $query = "insert into followtag (idUser, idTag) values (:idUser, :idTag)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser, 'idTag' => $idTag]);
+    }
+
+    public function getFollowedTagsByUser(int $idUser): array {
+        $query = "SELECT t.idTag, t.libelle 
+              FROM Tag t 
+              JOIN followtag f ON t.idTag = f.idTag 
+              WHERE f.idUser = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
 
 
 
