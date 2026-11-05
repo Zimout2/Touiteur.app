@@ -8,11 +8,11 @@ class Touite {
     private ?int $id;
     private string $message = "";
     private User $user;
-    private string $date;
+    private ?string $date;
     private ?int $likes;
     private ?array $tags;
 
-    public function __construct(string $message, User $user, string $date, ?int $likes, ?int $id = null){
+    public function __construct(string $message, User $user, ?string $date = null, ?int $likes = 0, ?int $id = null){
         $this->id = $id;
         $this->message = $message;
         $this->user = $user;
@@ -42,10 +42,10 @@ class Touite {
         $this->user = $user;
     }
 
-    public function getDate(): string{
+    public function getDate(): ?string{
         return $this->date;
     }
-    public function setDate(string $date): void{
+    public function setDate(?string $date): void{
         $this->date = $date;
     }
 
