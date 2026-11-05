@@ -63,23 +63,16 @@ class TouiteurRepository{
     }
 
     public function getTag() : array {
-        // On sélectionne l'ID et le libellé unique de chaque tag
-        $query = "SELECT DISTINCT libellle FROM tag WHERE libellle IS NOT NULL";
+        $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getTouiteByTagLibelle(string $libelle) : array {
-        // Récupère TOUS les touites associés à ce libellé de tag
-        $query = "SELECT t.id_touite, t.message, t.date, u.prenom AS auteur 
-              FROM touite t
-              JOIN tag ta ON t.id_touite = ta.id_tuites
-              JOIN user u ON t.id_user = u.id_user
-              WHERE ta.libellle = :libelle";
-
+    public function getTouiteByTagId(int $id) : array {
+        $query = "SELECT T.idTag from tag2touite where idTouite = :id";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['libelle' => $libelle]);
+        $stmt->execute(['idTouite' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
@@ -95,10 +88,10 @@ class TouiteurRepository{
         $stmt->execute(['libelle' => $tagNom, 'id_touite' => $idTouit]);
     }
     public function getTouites(): array{
-        $query = "SELECT t.id_touite, t.message, t.date, u.id_user, u.prenom
+        $query = "SELECT t.idTouite, t.message, t.dateTouite, u.idUser, u.prenom
                   FROM Touite t
-                  JOIN User u ON t.id_user = u.id_user
-                  ORDER BY t.date DESC";
+                  JOIN users u ON t.idTouite = u.idUser
+                  ORDER BY t.dateTouite DESC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll();
