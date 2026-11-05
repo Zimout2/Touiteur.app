@@ -3,14 +3,20 @@
 namespace touiteur\entite;
 
 class Tag {
+    private static int $compteur = 0;
     private int $id;
     private string $libelle;
     private string $description;
     private array $liste_suivie;
     private array $liste_touites;
 
-    public function __construct(int $id, string $libelle, string $description) {
-        $this->id = $id;
+    public function __construct(string $libelle, string $description, ?int $id) {
+        if ($id !== null) {
+            $this->id = $id;
+        } else {
+            self::$compteur++;
+            $this->id = self::$compteur;
+        }
         $this->libelle = $libelle;
         $this->description = $description;
         $this->liste_suivie = [];
