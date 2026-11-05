@@ -38,7 +38,15 @@ class DefaultAction extends Action
                 $html .= "<p>Tag  :";
                 foreach ($tagsDuTouite as $tag) {
                     $idTag = (int) ($tag['idTag'] ?? 0);
+<<<<<<< HEAD
                     $html .= " <a href=\"?action=displayTag&id={$idTag}\">#{$tag['libelle']}</a>";
+=======
+                    // On filtre le libelle du Tag
+                    $libelleTag = filter_var($tag['libelle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+                    // Intégration d'un lien qui pointe vers la page des tags
+                    $html .= "<p>{$message}<p>";
+                    $html .= "</p><strong>Tag</strong> : <a href=\"?action=displayTag&id={$idTag}\">#{$libelleTag}</a> ";
+>>>>>>> ecd8b0ee9955636449579b70b5ab055df9dfc405
                 }
                 $html .= "</p>";
             }

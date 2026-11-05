@@ -42,6 +42,11 @@ class DisplayTag extends Action {
                     $html .= "</div>";
                 }
             }
+            $html .= "<form method=\"POST\" action=\"?action=follow-tag\">";
+            $html .= "<input type=\"hidden\" name=\"idTag\" value=\"{$idTag}\">";
+            $html .= "<button type=\"submit\">Suivre ce tag</button>";
+            $html .= "</form>";
+            $html .= "</div>";
         }
         $html .= "</div>";
         return <<<HTML
