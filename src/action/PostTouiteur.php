@@ -7,8 +7,7 @@ use touiteur\repository\TouiteurRepository;
 class PostTouiteur extends Action {
 
     public function execute(): string {
-        //permet de simuler un user co 
-        $_SESSION['user']['idUser'] = 1;
+
         if (!isset($_SESSION['user'])) {
             return "<p>Vous devez être connecté pour publier un touite.</p>";
         }

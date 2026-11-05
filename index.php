@@ -11,6 +11,8 @@ use touiteur\action\PostTouiteur;
 use touiteur\action\UserTouiteur;
 use touiteur\repository\TouiteurRepository;
 use touiteur\action\InscriptionTouiteur;
+use touiteur\action\ConnexionTouiteur;
+use touiteur\action\DeconnexionTouiteur;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
@@ -18,8 +20,10 @@ $app = new Routeur();
 
 $app->addRoute('accueil', DefaultAction::class);
 $app->addRoute('publication', PostTouiteur::class);
-$app->addRoute('utilisateur', UserTouiteur::class);
 $app->addRoute('displayTag', DisplayTag::class);
 $app->addRoute('inscription', InscriptionTouiteur::class);
+$app->addRoute('default', DefaultAction::class);
+$app->addRoute('connexion', ConnexionTouiteur::class);
+$app->addRoute('deconnexion', DeconnexionTouiteur::class);
 
 echo $app->run();
