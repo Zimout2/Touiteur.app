@@ -45,11 +45,12 @@ class TouiteurRepository{
     }
 
     public function getTouitesByTag(int $id) : array {
-        $query = "SELECT T.idTouite, Touit.message, U.prenom 
-              FROM tag2touite T 
-              JOIN touite Touit ON Touit.idTouite = T.idTouite 
-              JOIN users U ON U.idUser = Touit.idUser 
-              WHERE T.idTag = :id";
+        $query = "SELECT T.idTouite, Touit.message, U.idUser, U.prenom
+                  FROM Tag2Touite T
+                  JOIN Touite Touit ON Touit.idTouite = T.idTouite
+                  JOIN Users U ON U.idUser = Touit.idUser
+                  WHERE T.idTag = :id
+                  ORDER BY Touit.dateTouite DESC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
