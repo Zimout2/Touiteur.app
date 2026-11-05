@@ -230,7 +230,7 @@ class TouiteurRepository{
                   on Users.idUser = Follow.idFollow and Users.idUser = Follow.idFollower
                              inner join Touite
                   on Users.idUser = Touite.idUser
-                  where idUser = :idUser";
+                  where Users.idUser = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -241,9 +241,9 @@ class TouiteurRepository{
 
 
     public function getTouiteByUser(int $idUser) {
-        $query = "select message, dateTouite, idUser
+        $query = "select Touite.message, Touite.dateTouite, Touite.idUser
                   from Touite
-                  where idUser = :idUser";
+                  where Touite.idUser = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt = execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
