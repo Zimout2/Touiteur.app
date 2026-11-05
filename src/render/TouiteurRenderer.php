@@ -68,7 +68,7 @@ class TouiteurRenderer implements Renderer {
         $isMessageLong = strlen($this->message) > 100;
 
         $html = "<div>";
-        $html .= "<h4>" . $this->user->pseudo . "</h4>";
+        $html .= "<h4>" . $this->user->getPrenom() . "</h4>";
         if ($isMessageLong) {
             $html .= "<p>" . $messageCourt . "...</p>";
             $html .= "<details>";
@@ -79,7 +79,7 @@ class TouiteurRenderer implements Renderer {
             $html .= "<p>" . $this->message . "</p>";
         }
         $html .= "<small>" . $this->date . "</small>";
-        $html .= "<small> Like : " . $this->like . "</small>";
+        //$html .= "<small> Like : " . $this->like . "</small>";
         $html .= "<br>";
 
         return $html;

@@ -74,7 +74,7 @@ class UserRenderer implements Renderer {
 
     public function render(): string {
         $html = "<h2>" . $this->prenom . "</h2>";
-        $html .= "<p><span>Nombre de followers : " . $this->nb_follow . "</span><span>Nombre de suivis : " . $this->nb_suivis . "</span></p>";
+        $html .= "<p><span>Nombre de followers : " . $this->nb_follow . "       </span><span>Nombre de suivis : " . $this->nb_suivis . "</span></p>";
         $html .= "<p>Nombre de touites : " . $this->nb_touite . "</p>";
         $html .= "<h3>Touites</h3>";
         return $html;
