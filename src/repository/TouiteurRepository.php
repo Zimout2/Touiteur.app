@@ -67,7 +67,7 @@ class TouiteurRepository{
      * @return array qui est le type de contenue renvoyer par cette méthode
      */
     public function getTag() : array {
-        $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
+        $query = "SELECT idTag, libelle FROM Tag ORDER BY libelle";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -79,9 +79,14 @@ class TouiteurRepository{
      * @return array est le type de contenue retourner
      */
     public function getTouiteByTagId(int $id) : array {
-        $query = "SELECT T.idTag from tag2touite where idTouite = :id";
+        $query = "SELECT t.idTouite, t.message, u.idUser, u.prenom
+                  FROM Touite t
+                  JOIN Users u       ON t.idUser = u.idUser
+                  JOIN Tag2Touite tt ON tt.idTouite = t.idTouite
+                  WHERE tt.idTag = :id
+                  ORDER BY t.dateTouite DESC";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['idTouite' => $id]);
+        $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
