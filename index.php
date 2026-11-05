@@ -27,6 +27,5 @@ $app->addRoute('inscription', InscriptionTouiteur::class);
 $app->addRoute('default', DefaultAction::class);
 $app->addRoute('connexion', ConnexionTouiteur::class);
 $app->addRoute('deconnexion', DeconnexionTouiteur::class);
-$app->addRoute('display-touite', DisplayTouit::class);
 $app->addRoute('utilisateur', DisplayUtilisateur::class);
 echo $app->run();

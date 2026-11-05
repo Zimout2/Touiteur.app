@@ -38,7 +38,7 @@ class TouiteurRepository{
     }
 
     public function getTagById(int $id) : array {
-        $query = "SELECT libelle FROM tag WHERE idTag = :id";
+        $query = "SELECT libelle FROM Tag WHERE idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
@@ -53,6 +53,16 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+    }
+
+    public function getTagsByTouite(int $idTouite): array {
+        $query = "SELECT tag.idTag, tag.libelle 
+              FROM tag 
+              JOIN tag2touite ON tag.idTag = tag2touite.idTag 
+              WHERE tag2touite.idTouite = :idTouite";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idTouite' => $idTouite]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
