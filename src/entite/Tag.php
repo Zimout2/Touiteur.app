@@ -3,20 +3,14 @@
 namespace touiteur\entite;
 
 class Tag {
-    private static int $compteur = 0;
-    private int $id;
+    private ?int $id;
     private string $libelle;
     private string $description;
     private array $liste_suivie;
     private array $liste_touites;
 
-    public function __construct(string $libelle, string $description, ?int $id) {
-        if ($id !== null) {
-            $this->id = $id;
-        } else {
-            self::$compteur++;
-            $this->id = self::$compteur;
-        }
+    public function __construct(string $libelle, string $description, ?int $id = null) {
+        $this->id = $id;
         $this->libelle = $libelle;
         $this->description = $description;
         $this->liste_suivie = [];
@@ -29,7 +23,7 @@ class Tag {
 
 
 
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
     public function getLibelle(): string {
@@ -39,7 +33,7 @@ class Tag {
         return $this->description;
     }
     public function getListeSuivie(): array {
-        return $this->liste_touites;
+        return $this->liste_suivie;
     }
     public function getListe_Touites(): array {
         return $this->liste_touites;
@@ -77,19 +71,19 @@ class Tag {
 
     public function addListeTouite (int $idTouite): void {
         if (!in_array($idTouite, $this->liste_touites)) {
-            $this->liste_touitse[] = $idTouite;
+            $this->liste_touites[] = $idTouite;
         }
     }
 
     public function removeListeSuivi (int $idUser): void {
         if (in_array($idUser, $this->liste_suivie)) {
-            unset($liste_suivie[array_search($idUser, $this->liste_suivie)]);
+            unset($this->liste_suivie[array_search($idUser, $this->liste_suivie)]);
         }
     }
 
     public function removeListeTouite (int $idTouite): void {
         if (in_array($idTouite, $this->liste_touites)) {
-            unset($liste_touites[array_search($idTouite, $this->liste_touites)]);
+            unset($this->liste_touites[array_search($idTouite, $this->liste_touites)]);
         }
     }
 
