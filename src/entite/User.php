@@ -4,6 +4,7 @@ namespace touiteur\entite;
 
 class User {
 
+    private static int $compteur = 0;
     private int $id;
     private string $prenom;
     private string $email;
@@ -14,8 +15,13 @@ class User {
     private array $liste_touite_liker;
     private array $liste_tag;
 
-    public function __construct(string $prenom, string $email, int $id) {
-        $this->id = $id;
+    public function __construct(string $prenom, string $email, ?int $id) {
+        if ($id !== null) {
+            $this->id = $id;
+        } else {
+            self::$compteur++;
+            $this->id = self::$compteur;
+        }
         $this->prenom = $prenom;
         $this->email = $email;
         $this->nb_touite = count($this->liste_touite);

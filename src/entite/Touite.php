@@ -5,6 +5,7 @@ namespace touiteur\entite;
 use touiteur\entite\User;
 
 class Touite {
+    private static int $compteur = 0;
     private int $id;
     private string $message = "";
     private User $user;
@@ -12,8 +13,13 @@ class Touite {
     private ?int $likes;
     private ?array $tags;
 
-    public function __construct(int $id, string $message, User $user, string $date, ?int $likes){
-        $this->id = $id;
+    public function __construct(string $message, User $user, string $date, ?int $likes, ?int $id){
+        if ($id !== null) {
+            $this->id = $id;
+        } else {
+            self::$compteur++;
+            $this->id = self::$compteur;
+        }
         $this->message = $message;
         $this->user = $user;
         $this->date = $date;
