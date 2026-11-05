@@ -46,9 +46,9 @@ class TouiteurRepository{
 
     public function getTouitesByTag(int $id) : array {
         $query = "SELECT T.idTouite, Touit.message, U.prenom as auteur, U.idUser
-              FROM tag2touite T 
-              JOIN touite Touit ON Touit.idTouite = T.idTouite 
-              JOIN users U ON U.idUser = Touit.idUser 
+              FROM Tag2Touite T 
+              JOIN Touite Touit ON Touit.idTouite = T.idTouite 
+              JOIN Users U ON U.idUser = Touit.idUser 
               WHERE T.idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
@@ -60,7 +60,7 @@ class TouiteurRepository{
      * @return array qui est le type de contenue renvoyer par cette méthode
      */
     public function getTag() : array {
-        $query = "SELECT DISTINCT libelle, idTag FROM tag WHERE libelle IS NOT NULL";
+        $query = "SELECT DISTINCT libelle, idTag FROM Tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class TouiteurRepository{
      * @return array est le type de contenue retourner
      */
     public function getTouiteByTagId(int $id) : array {
-        $query = "SELECT T.idTag from tag2touite where idTouite = :id";
+        $query = "SELECT T.idTag from Tag2Touite where idTouite = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idTouite' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
@@ -126,7 +126,7 @@ class TouiteurRepository{
 
     public function getUserByPrenomEmail(string $prenom, string $email): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT id_user, prenom, email FROM User WHERE prenom = :prenom AND email = :email");
+        $stmt = $this->pdo->prepare("SELECT id_user, prenom, email FROM Users WHERE prenom = :prenom AND email = :email");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
@@ -151,7 +151,7 @@ class TouiteurRepository{
      * @return void
      */
     public function getUser() {
-        $stmt = $this->pdo->prepare("SELECT prenom FROM User");
+        $stmt = $this->pdo->prepare("SELECT prenom FROM Users");
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -162,7 +162,7 @@ class TouiteurRepository{
      * @return array retourne une liste d'utilisateur
      */
     public function getFollowers(int $idUser) {
-        $query = "SELECT F.idFollower FROM Follow F, user U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
+        $query = "SELECT F.idFollower FROM Follow F, Users U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -170,7 +170,7 @@ class TouiteurRepository{
 
     public function getUsersTriFollowers() {
         $query = "SELECT U.idUser, U.prenom, COUNT(F.idFollow) AS nb_followers 
-              FROM User U 
+              FROM Users U 
               LEFT JOIN Follow F ON U.idUser = F.idFollow 
               GROUP BY U.idUser, U.prenom 
               ORDER BY nb_followers DESC";
