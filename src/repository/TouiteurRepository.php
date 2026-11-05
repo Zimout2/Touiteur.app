@@ -109,9 +109,13 @@ class TouiteurRepository{
             $idTag = $row['idTag'];
         }else{
             //sinon on le crée
-            $stmt = $this->pdo->prepare("INSERT INTO Tag (libelle) VALUES (:libelle)");
-            $stmt->execute(['libelle' => $tagNom]);
-            $idTag = $this->pdo->lastInsertId();
+            $stmt = $this->pdo->prepare("SELECT MAX(idTag) FROM Tag");
+            $stmt->execute();
+            $idTag = $stmt->fetchColumn() + 1;
+
+            $stmt = $this->pdo->prepare("INSERT INTO Tag (idTag, libelle) VALUES (:idTag, :libelle)");
+            $stmt->execute(['idTag' => $idTag, 'libelle' => $tagNom]);
+            
         }
         //on le relie au tuite
         $stmt = $this ->pdo->prepare("INSERT INTO Tag2Touite (idTag, idTouite) VALUES (:idTag, :idTouite)");
