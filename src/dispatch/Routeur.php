@@ -45,6 +45,8 @@ class Routeur{
                 <a href="?action=displayTag">Tag</a>
                 <p></p>
                 <a href="?action=utilisateur">Utilisateur</a>
+                <p></p>
+                <a href="?action=inscription">Inscription</a>
             </nav>
             <div id="content">
                 $html
