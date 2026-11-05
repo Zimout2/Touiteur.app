@@ -62,6 +62,10 @@ class TouiteurRepository{
         return $result ?: [];
     }
 
+    /**
+     * Cette méthode permet de renvoyer tout les tags de la base de données
+     * @return array qui est le type de contenue renvoyer par cette méthode
+     */
     public function getTag() : array {
         $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
@@ -69,6 +73,11 @@ class TouiteurRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Cette méthode permet de trouver un touite par son id de tag
+     * @param int $id est l'id du touite
+     * @return array est le type de contenue retourner
+     */
     public function getTouiteByTagId(int $id) : array {
         $query = "SELECT T.idTag from tag2touite where idTouite = :id";
         $stmt = $this->pdo->prepare($query);
