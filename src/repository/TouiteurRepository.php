@@ -57,10 +57,10 @@ class TouiteurRepository{
     }
 
     public function getTagsByTouite(int $idTouite): array {
-        $query = "SELECT tag.idTag, tag.libelle 
-              FROM tag 
-              JOIN tag2touite ON tag.idTag = tag2touite.idTag 
-              WHERE tag2touite.idTouite = :idTouite";
+        $query = "SELECT Tag.idTag, Tag.libelle 
+              FROM Tag 
+              JOIN Tag2Touite ON Tag.idTag = Tag2Touite.idTag 
+              WHERE Tag2Touite.idTouite = :idTouite";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idTouite' => $idTouite]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -209,7 +209,7 @@ class TouiteurRepository{
 
 
 
-    
+
 
 
     public function getProfilPerso(int $idUser) {
