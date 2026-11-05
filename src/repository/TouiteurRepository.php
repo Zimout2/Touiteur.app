@@ -125,7 +125,7 @@ class TouiteurRepository{
 
     public function getUserByPrenomEmail(string $prenom, string $email): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT id_user, prenom, email FROM User WHERE prenom = :prenom AND email = :email");
+        $stmt = $this->pdo->prepare("SELECT idUser, prenom, email FROM Users WHERE prenom = :prenom AND email = :email");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;

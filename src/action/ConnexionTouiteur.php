@@ -2,6 +2,7 @@
 
 namespace touiteur\action;
 
+use touiteur\repository\TouiteurRepository;
 
 class ConnexionTouiteur extends Action {
     public function execute(): string {
@@ -22,6 +23,12 @@ class ConnexionTouiteur extends Action {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return "<p>Email invalide. <a href=\"?action=connexion\">Réessayer</a></p>";
     }
-    //... 
+    $user = TouiteurRepository::getInstance()->getUserByPrenomEmail($prenom, $email);
+    if (is_null($user)) {
+        return "<p>Pseudo ou email incorrect. <a href=\"?action=connexion\">Réessayer</a></p>";
+    }
+
+    $_SESSION['user'] = $user;  
+    return "<p>Bonjour {$user['prenom']} ! <a href=\"?action=accueil\">Accueil</a></p>";
     }
 }

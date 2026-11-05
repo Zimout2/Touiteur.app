@@ -47,6 +47,10 @@ class Routeur{
                 <a href="?action=utilisateur">Utilisateur</a>
                 <p></p>
                 <a href="?action=inscription">Inscription</a>
+                <p></p>
+                <a href="?action=connexion">Connexion</a>
+                <p></p>
+                <a href="?action=deconnexion">Déconnexion</a>
             </nav>
             <div id="content">
                 $html
