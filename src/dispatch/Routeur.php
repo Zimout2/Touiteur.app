@@ -42,9 +42,9 @@ class Routeur{
                 <p></p>
                 <a href="?action=publication">Publier un touite</a>
                 <p></p>
-                <a href="?action=tag">Tag</a>
+                <a href="?action=displayTag">Tag</a>
                 <p></p>
-                <a href="?action=profil">Utilisateur</a>
+                <a href="?action=utilisateur">Utilisateur</a>
             </nav>
             <div id="content">
                 $html
