@@ -27,7 +27,20 @@ class DisplayTouit extends Action {
         $html .= "<br><a href=\"?action=default\">← Retour à la liste</a>";
         $html .= "</div>";
 
-        return $html;
+        return <<<HTML
+        <style>
+            .tag-container {
+                max-width: 600px;
+                margin: 0 auto; /* Centre le conteneur principal sur la page */
+                text-align: center; /* Centre le texte à l'intérieur */
+                font-family: Arial, sans-serif;
+            }
+        </style>
+
+        <div class='tag-container'>
+            {$html} <!-- Attention à ne pas réinjecter $html dans lui-même, adaptez selon votre variable finale -->
+        </div>
+        HTML;
     }
 
 }

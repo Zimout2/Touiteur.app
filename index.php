@@ -13,6 +13,7 @@ use touiteur\repository\TouiteurRepository;
 use touiteur\action\InscriptionTouiteur;
 use touiteur\action\ConnexionTouiteur;
 use touiteur\action\DeconnexionTouiteur;
+use touiteur\action\DisplayTouit;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
@@ -25,5 +26,5 @@ $app->addRoute('inscription', InscriptionTouiteur::class);
 $app->addRoute('default', DefaultAction::class);
 $app->addRoute('connexion', ConnexionTouiteur::class);
 $app->addRoute('deconnexion', DeconnexionTouiteur::class);
-
+$app->addRoute('display-touite', DisplayTouit::class);
 echo $app->run();

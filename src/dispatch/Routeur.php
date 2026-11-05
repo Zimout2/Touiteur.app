@@ -42,6 +42,8 @@ class Routeur{
                 <p></p>
                 <a href="?action=publication">Publier un touite</a>
                 <p></p>
+                <a href="?action=display-touite">Touites</a>
+                <p></p>
                 <a href="?action=displayTag">Tag</a>
                 <p></p>
                 <a href="?action=utilisateur">Utilisateur</a>
