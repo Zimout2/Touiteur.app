@@ -20,20 +20,9 @@ class DisplayUtilisateur extends Action {
         foreach ($user_list as $users) {
             $prenom = filter_var($users["prenom"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
             $id = filter_var($users['idUser'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $nb_followers = $users['nb_followers'] ?? 0;
-            $touite = $repo->getTouitesByUserId($id);
 
             $html .= "<div class='touite-ta'>";
-            $html .= "<p class='align-center'>Voici l'utilisateur : <strong>$prenom</strong>. Actuellement à: <strong>$nb_followers</strong></strong> followers</p>";
-            $html .= "<p class='align-center'>Voici tous les touites qu'il a réalisé :</p>";
-            foreach ($touite as $t) {
-                $message = filter_var($t['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-                $idTouite = (int) ($t['idTouite'] ?? 0);
-
-                $html .= "<div class=\"touite aligne-center\">";
-                $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
-                $html .= "</div>";
-            }
+            $html .= "<p class='align-center'><strong>$prenom</strong></p>";
             $html .= "</div>";
         }
         $html .= "</div>";
