@@ -128,4 +128,26 @@ class TouiteurRepository{
         return $this->pdo->lastInsertId();
     }
 
+    /**
+     * Méthode qui permet d'obtenir tout les utilisateurs de la base de données
+     * @return void
+     */
+    public function getUser() {
+        $stmt = $this->pdo->prepare("SELECT prenom FROM User");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Méthode qui permet d'avoir tout les followers d'un utilisateur
+     * @param int $idUser est l'id de l'utilisateur recherché dans la base de donnée
+     * @return array retourne une liste d'utilisateur
+     */
+    public function getFollowers(int $idUser) {
+        $query = "SELECT F.idFollower FROM Follow F, user U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
