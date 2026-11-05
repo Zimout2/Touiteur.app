@@ -150,7 +150,7 @@ class TouiteurRepository{
      * Méthode qui permet d'obtenir tout les utilisateurs de la base de données
      * @return void
      */
-    public function getUser() {
+    public function getUser() : array {
         $stmt = $this->pdo->prepare("SELECT prenom FROM Users");
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -161,14 +161,14 @@ class TouiteurRepository{
      * @param int $idUser est l'id de l'utilisateur recherché dans la base de donnée
      * @return array retourne une liste d'utilisateur
      */
-    public function getFollowers(int $idUser) {
+    public function getFollowers(int $idUser) : array{
         $query = "SELECT F.idFollower FROM Follow F, Users U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getUsersTriFollowers() {
+    public function getUsersTriFollowers() : array {
         $query = "SELECT U.idUser, U.prenom, COUNT(F.idFollow) AS nb_followers 
               FROM Users U 
               LEFT JOIN Follow F ON U.idUser = F.idFollow 
@@ -176,6 +176,13 @@ class TouiteurRepository{
               ORDER BY nb_followers DESC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTouitesByUserId(int $id) : array {
+        $query = "SELECT idTouite, message FROM Touite WHERE idUser = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
