@@ -46,6 +46,8 @@ class Routeur{
                 <p></p>
                 <a href="?action=utilisateur">Utilisateur</a>
                 <p></p>
+                <a href="?action=profil">Profil</a>
+                <p></p>
                 <a href="?action=inscription">Inscription</a>
                 <p></p>
                 <a href="?action=connexion">Connexion</a>
