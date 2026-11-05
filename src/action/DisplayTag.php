@@ -37,7 +37,7 @@ class DisplayTag extends Action {
                     $idTouite = (int) ($touite['idTouite'] ?? 0);
 
                     $html .= "<div class=\"touite\">";
-                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a></p>";
+                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a> à Touiter :</p>";
                     $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
                     $html .= "</div>";
                 }
