@@ -31,14 +31,14 @@ class DisplayTouit extends Action {
         <style>
             .tag-container {
                 max-width: 600px;
-                margin: 0 auto; /* Centre le conteneur principal sur la page */
-                text-align: center; /* Centre le texte à l'intérieur */
+                margin: 0 auto;
+                text-align: center;
                 font-family: Arial, sans-serif;
             }
         </style>
 
         <div class='tag-container'>
-            {$html} <!-- Attention à ne pas réinjecter $html dans lui-même, adaptez selon votre variable finale -->
+            {$html}
         </div>
         HTML;
     }
