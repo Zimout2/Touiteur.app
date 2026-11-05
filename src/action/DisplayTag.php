@@ -14,7 +14,7 @@ class DisplayTag extends Action {
         if (empty($tag)) {
             return "<p>Erreur : Tag introuvable.</p>";
         }
-
+      
         $html  = "";
         $html .= "<div class='main-container'>";
         $html .= "<h2>Liste de tous les tags et de leurs touites</h2>";
@@ -31,7 +31,7 @@ class DisplayTag extends Action {
                 $html .= "<p>Aucun touite associé à ce tag.</p>";
             } else {
                 foreach ($touitesDuTag as $touite) {
-                    $message = filter_var($touite['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+                    $message = $this->retirerTags($touite['message']);
                     $auteur = filter_var($touite["auteur"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                     $idUser = (int) ($touite['idUser'] ?? 0);
                     $idTouite = (int) ($touite['idTouite'] ?? 0);

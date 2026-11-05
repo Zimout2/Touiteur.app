@@ -20,30 +20,33 @@ class DefaultAction extends Action
         foreach ($touites as $t) {
             $idTouite = (int) ($t['idTouite'] ?? 0);
 
-            // Récupération du message en le filtrant pour éviter les injections
-            $message = filter_var($t['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+            
+            $message = $this->retirerTags($t['message']);
 
-
-            // Récupération du message en le filtrant pour éviter les injections
-            $prenom = filter_var($t['prenom'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $prenom = $t['prenom'];
             $idUser = (int) ($t['idUser'] ?? 0);
 
             $tagsDuTouite = $obj->getTagsByTouite($idTouite);
 
             $html .= "<div class=\"touite\">";
 
-
+            $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$prenom}</a></p>";
+            $html .= "<p>{$message}</p>";
 
             // Cette boucle permet de parcourir l'ensemble des tags issuent du touites
             if (!empty($tagsDuTouite)) {
-                $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$prenom}</a></p>";
+                $html .= "<p>Tag  :";
                 foreach ($tagsDuTouite as $tag) {
                     $idTag = (int) ($tag['idTag'] ?? 0);
+<<<<<<< HEAD
+                    $html .= " <a href=\"?action=displayTag&id={$idTag}\">#{$tag['libelle']}</a>";
+=======
                     // On filtre le libelle du Tag
                     $libelleTag = filter_var($tag['libelle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                     // Intégration d'un lien qui pointe vers la page des tags
                     $html .= "<p>{$message}<p>";
                     $html .= "</p><strong>Tag</strong> : <a href=\"?action=displayTag&id={$idTag}\">#{$libelleTag}</a> ";
+>>>>>>> ecd8b0ee9955636449579b70b5ab055df9dfc405
                 }
                 $html .= "</p>";
             }
