@@ -19,17 +19,17 @@ class InscriptionTouiteur extends Action {
         }
 
         $prenom = filter_var($_POST['prenom'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-        $email  = $_POST['email'] ?? '';
+        $email  = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if ($prenom === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return "<p>Pseudo ou email invalide. <a href=\"?action=inscription\">Réessayer</a></p>";
+        if ($prenom === '' || !$email === '') {
+            return "<p>Votre pseudo ou votre email est invalide !<a href=\"?action=inscription\">Réessayer</a></p>";
         }
         $repo = TouiteurRepository::getInstance();
         if ($repo->prenomOuEmailExiste($prenom, $email)) {
-            return "<p>utilisateur deja inscrit <a href=\"?action=inscription\">Réessayer</a></p>";
+            return "<p>Utilisateur déjà inscrit !<a href=\"?action=inscription\">Réessayer</a></p>";
         }
         $id = $repo->addUser($prenom, $email);
-        $_SESSION['user'] = ['id_user' => $id, 'prenom' => $prenom, 'email' => $email];
+        $_SESSION['user'] = ['idUser' => $id, 'prenom' => $prenom, 'email' => $email];
         return "<p>Bienvenue $prenom, vous êtes inscrit et connecté ! <a href=\"?action=accueil\">Accueil</a></p>";
 
     }

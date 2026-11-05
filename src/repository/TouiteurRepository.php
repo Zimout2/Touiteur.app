@@ -62,6 +62,10 @@ class TouiteurRepository{
         return $result ?: [];
     }
 
+    /**
+     * Cette méthode permet de renvoyer tout les tags de la base de données
+     * @return array qui est le type de contenue renvoyer par cette méthode
+     */
     public function getTag() : array {
         $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
@@ -69,6 +73,11 @@ class TouiteurRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Cette méthode permet de trouver un touite par son id de tag
+     * @param int $id est l'id du touite
+     * @return array est le type de contenue retourner
+     */
     public function getTouiteByTagId(int $id) : array {
         $query = "SELECT T.idTag from tag2touite where idTouite = :id";
         $stmt = $this->pdo->prepare($query);
@@ -138,6 +147,28 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare("INSERT INTO User (prenom, email) VALUES (:prenom, :email)");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         return $this->pdo->lastInsertId();
+    }
+
+    /**
+     * Méthode qui permet d'obtenir tout les utilisateurs de la base de données
+     * @return void
+     */
+    public function getUser() {
+        $stmt = $this->pdo->prepare("SELECT prenom FROM User");
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Méthode qui permet d'avoir tout les followers d'un utilisateur
+     * @param int $idUser est l'id de l'utilisateur recherché dans la base de donnée
+     * @return array retourne une liste d'utilisateur
+     */
+    public function getFollowers(int $idUser) {
+        $query = "SELECT F.idFollower FROM Follow F, user U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }
