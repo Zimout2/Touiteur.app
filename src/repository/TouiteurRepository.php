@@ -77,20 +77,41 @@ class TouiteurRepository{
     }
 
     public function addTouit(string $texte, int $idUser): int {
-        $query = "INSERT INTO Touite (message, date, likes, id_user) VALUES (:message, NOW(), 0, :id_user)";
+        
+        $stmt = $this->pdo->prepare("SELECT MAX(idTouite) FROM Touite");
+        $stmt->execute();
+        $idTouite = $stmt->fetchColumn() + 1;
+
+        $query = "INSERT INTO Touite (idTouite, message, dateTouite, likeTouite, idUser) VALUES (:idTouite, :message, NOW(), 0, :idUser)";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['message' => $texte, 'id_user' => $idUser]);
-        return $this->pdo->lastInsertId();
+        $stmt->execute(['idTouite' => $idTouite, 'message' => $texte, 'idUser' => $idUser]);
+        $stmt = $this->pdo->prepare("UPDATE Users SET nbTouite = nbTouite + 1 WHERE idUser = :idUser");
+        $stmt->execute(['idUser' => $idUser]);
+        return $idTouite;
     }
     public function addTagToTouit(int $idTouit , string $tagNom):void {
-        $query = "INSERT INTO Tag (libellle, id_tuites) VALUES (:libelle, :id_touite)";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['libelle' => $tagNom, 'id_touite' => $idTouit]);
+        //on regarde si le tag existe deja 
+        $stmt = "SELECT idTag FROM Tag WHERE libelle = :libelle";
+        $stmt = $this->pdo->prepare($stmt);
+        $stmt->execute(['libelle' => $tagNom ]);
+        $row  = $stmt ->fetch(PDO::FETCH_ASSOC);
+
+        if($row){
+            $idTag = $row['idTag'];
+        }else{
+            //sinon on le crée
+            $stmt = $this->pdo->prepare("INSERT INTO Tag (libelle) VALUES (:libelle)");
+            $stmt->execute(['libelle' => $tagNom]);
+            $idTag = $this->pdo->lastInsertId();
+        }
+        //on le relie au tuite
+        $stmt = $this ->pdo->prepare("INSERT INTO Tag2Touite (idTag, idTouite) VALUES (:idTag, :idTouite)");
+        $stmt->execute(['idTag' => $idTag, 'idTouite' => $idTouit]);
     }
     public function getTouites(): array{
         $query = "SELECT t.idTouite, t.message, t.dateTouite, u.idUser, u.prenom
                   FROM Touite t
-                  JOIN users u ON t.idTouite = u.idUser
+                  JOIN Users u ON t.idUser = u.idUser
                   ORDER BY t.dateTouite DESC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
