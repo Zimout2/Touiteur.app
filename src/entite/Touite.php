@@ -5,21 +5,15 @@ namespace touiteur\entite;
 use touiteur\entite\User;
 
 class Touite {
-    private static int $compteur = 0;
-    private int $id;
+    private ?int $id;
     private string $message = "";
     private User $user;
     private string $date;
     private ?int $likes;
     private ?array $tags;
 
-    public function __construct(string $message, User $user, string $date, ?int $likes, ?int $id){
-        if ($id !== null) {
-            $this->id = $id;
-        } else {
-            self::$compteur++;
-            $this->id = self::$compteur;
-        }
+    public function __construct(string $message, User $user, string $date, ?int $likes, ?int $id = null){
+        $this->id = $id;
         $this->message = $message;
         $this->user = $user;
         $this->date = $date;
@@ -27,10 +21,10 @@ class Touite {
         $this->tags = [];
     }
 
-    public function getId(): int{
+    public function getId(): ?int{
         return $this->id;
     }
-    public function setId(int $id): void{
+    public function setId(?int $id): void{
         $this->id = $id;
     }
 
@@ -100,12 +94,12 @@ class Touite {
 
     public function removeListeTag (int $idTag): void {
         if (in_array($idTag, $this->liste_tag)) {
-            unset($liste_tag[array_search($idTag, $this->liste_tag)]);
+            unset($this->liste_tag[array_search($idTag, $this->liste_tag)]);
         }
     }
 
     public function isListeTag (int $idTag): bool {
-        return (in_array($idTag, $this->liste_tag));
+        return (in_array($idTag, $this->tags));
     }
 
 

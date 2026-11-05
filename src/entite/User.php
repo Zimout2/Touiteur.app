@@ -4,8 +4,7 @@ namespace touiteur\entite;
 
 class User {
 
-    private static int $compteur = 0;
-    private int $id;
+    private ?int $id;
     private string $prenom;
     private string $email;
     private int $nb_touite;
@@ -15,13 +14,8 @@ class User {
     private array $liste_touite_liker;
     private array $liste_tag;
 
-    public function __construct(string $prenom, string $email, ?int $id) {
-        if ($id !== null) {
-            $this->id = $id;
-        } else {
-            self::$compteur++;
-            $this->id = self::$compteur;
-        }
+    public function __construct(string $prenom, string $email, ?int $id = null) {
+        $this->id = $id;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->nb_touite = count($this->liste_touite);
@@ -69,7 +63,7 @@ class User {
     public function setListeTag(array $liste_tag): void {
         $this->liste_tag = $liste_tag;
     }
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
     public function getListeFollow(): array {
@@ -125,31 +119,31 @@ class User {
 
     public function removeListeFollow (int $idUser): void {
         if (in_array($idUser, $this->liste_follow)) {
-            unset($liste_follow[array_search($idUser, $this->liste_follow)]);
+            unset($this->liste_follow[array_search($idUser, $this->liste_follow)]);
         }
     }
 
     public function removeListeTouite (int $idTouite): void {
         if (in_array($idTouite, $this->liste_touite)) {
-            unset($liste_touite[array_search($idTouite, $this->liste_touite)]);
+            unset($this->liste_touite[array_search($idTouite, $this->liste_touite)]);
         }
     }
 
     public function removeListeTag (int $idTag): void {
         if (in_array($idTag, $this->liste_tag)) {
-            unset($liste_tag[array_search($idTag, $this->liste_tag)]);
+            unset($this->liste_tag[array_search($idTag, $this->liste_tag)]);
         }
     }
 
     public function removeListeSuivi (int $idUser): void {
         if (in_array($idUser, $this->liste_suivie)) {
-            unset($liste_suivie[array_search($idUser, $this->liste_suivie)]);
+            unset($this->liste_suivie[array_search($idUser, $this->liste_suivie)]);
         }
     }
 
     public function removeListeTouiteLike (int $idTouite): void {
         if (in_array($idTouite, $this->liste_touite_liker)) {
-            unset($liste_touite_liker[array_search($idTouite, $this->liste_touite_liker)]);
+            unset($this->liste_touite_liker[array_search($idTouite, $this->liste_touite_liker)]);
         }
     }
 
