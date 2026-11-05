@@ -18,7 +18,7 @@ $app = new Routeur();
 
 $app->addRoute('accueil', DefaultAction::class);
 $app->addRoute('publication', PostTouiteur::class);
-$app->addRoute('profil', UserTouiteur::class);
+$app->addRoute('utilisateur', UserTouiteur::class);
 $app->addRoute('displayTag', DisplayTag::class);
 
 echo $app->run();
