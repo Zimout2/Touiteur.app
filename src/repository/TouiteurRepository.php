@@ -106,4 +106,26 @@ class TouiteurRepository{
         return $stmt->fetchAll();
     }
 
+    public function getUserByPrenomEmail(string $prenom, string $email): ?array
+    {
+        $stmt = $this->pdo->prepare("SELECT id_user, prenom, email FROM User WHERE prenom = :prenom AND email = :email");
+        $stmt->execute(['prenom' => $prenom, 'email' => $email]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
+
+    public function prenomOuEmailExiste(string $prenom, string $email): bool
+    {
+        $stmt = $this->pdo->prepare("SELECT id_user FROM User WHERE prenom = :prenom OR email = :email");
+        $stmt->execute(['prenom' => $prenom, 'email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+    }
+
+    public function addUser(string $prenom, string $email): int
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO User (prenom, email) VALUES (:prenom, :email)");
+        $stmt->execute(['prenom' => $prenom, 'email' => $email]);
+        return $this->pdo->lastInsertId();
+    }
+
 }
