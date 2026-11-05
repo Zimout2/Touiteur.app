@@ -22,7 +22,7 @@ class DisplayUtilisateur extends Action {
             $id = filter_var($users['idUser'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $html .= "<div class='touite-ta'>";
-            $html .= "<p class='align-center'><strong>$prenom</strong></p>";
+            $html .= "<p class='align-center'><strong>$prenom</strong></p>"; // LIEN VERS PROFIL
             $html .= "</div>";
         }
         $html .= "</div>";
