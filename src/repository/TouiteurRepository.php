@@ -44,14 +44,16 @@ class TouiteurRepository{
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
     }
 
-    public function getTouitesByTag(int $id) : array {
-        $query = "SELECT T.idTouite, Touit.message, U.prenom 
-              FROM tag2touite T 
-              JOIN touite Touit ON Touit.idTouite = T.idTouite 
-              JOIN users U ON U.idUser = Touit.idUser 
-              WHERE T.idTag = :id";
+    public function getTouitesByTag(int $idTag) : array {
+        $query = "SELECT Touit.idTouite, Touit.message, U.prenom AS auteur 
+              FROM Tag2Touite T 
+              JOIN Touite Touit ON Touit.idTouite = T.idTouite 
+              JOIN Users U ON U.idUser = Touit.idUser 
+              WHERE T.idTag = :idTag";
+
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['id' => $id]);
+        $stmt->execute(['idTag' => $idTag]);
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
@@ -60,7 +62,7 @@ class TouiteurRepository{
      * @return array qui est le type de contenue renvoyer par cette méthode
      */
     public function getTag() : array {
-        $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
+        $query = "SELECT DISTINCT libelle, idTag FROM tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -79,7 +81,6 @@ class TouiteurRepository{
     }
 
     public function addTouit(string $texte, int $idUser): int {
-        
         $stmt = $this->pdo->prepare("SELECT MAX(idTouite) FROM Touite");
         $stmt->execute();
         $idTouite = $stmt->fetchColumn() + 1;
@@ -101,7 +102,6 @@ class TouiteurRepository{
         if($row){
             $idTag = $row['idTag'];
         }else{
-            //sinon on le crée
             $stmt = $this->pdo->prepare("SELECT MAX(idTag) FROM Tag");
             $stmt->execute();
             $idTag = $stmt->fetchColumn() + 1;
@@ -110,8 +110,7 @@ class TouiteurRepository{
             $stmt->execute(['idTag' => $idTag, 'libelle' => $tagNom]);
             
         }
-        //on le relie au tuite
-        $stmt = $this ->pdo->prepare("INSERT INTO Tag2Touite (idTag, idTouite) VALUES (:idTag, :idTouite)");
+        $stmt = $this ->pdo->prepare("INSERT ignore INTO Tag2Touite (idTag, idTouite) VALUES (:idTag, :idTouite)");
         $stmt->execute(['idTag' => $idTag, 'idTouite' => $idTouit]);
     }
     public function getTouites(): array{
