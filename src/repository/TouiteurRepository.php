@@ -2,6 +2,7 @@
 namespace touiteur\repository;
 
 use PDO;
+use touiteur\entite\User;
 
 class TouiteurRepository{
     private PDO $pdo;
@@ -178,4 +179,46 @@ class TouiteurRepository{
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+
+
+    public function getProfilPerso(int $idUser) {
+        $query = "select prenom, email, idUser
+                  from Users
+                  where idUser = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser]);
+        $user = new User($stmt->fetchColumn(0), $stmt->fetchColumn(1), $stmt->fetchColumn(2));
+        return $user;
+    }
+
+
+
+    public function getInfoProfil(int $idUser) {
+        $query = "select count(idFollow) as abo, count(idFollower) as follower, count(idTouite) as touite
+                  from Users inner join Follow
+                  on Users.idUser = Follow.idFollow and Users.idUser = Follow.idFollower
+                             inner join Touite
+                  on Users.idUser = Touite.idUser
+                  where idUser = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
+    public function getTouiteByUser(int $idUser) {
+        $query = "select message, dateTouite, idUser
+                  from Touite
+                  where idUser = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt = execute(['idUser' => $idUser]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

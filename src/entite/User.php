@@ -18,12 +18,12 @@ class User {
         $this->id = $id;
         $this->prenom = $prenom;
         $this->email = $email;
-        $this->nb_touite = count($this->liste_touite);
         $this->liste_follow = [];
         $this->liste_touite = [];
         $this->liste_tag = [];
         $this->liste_suivie = [];
         $this->liste_touite_liker = [];
+        $this->nb_touite = count($this->liste_touite);
     }
     public function getPrenom(): string {
         return $this->prenom;

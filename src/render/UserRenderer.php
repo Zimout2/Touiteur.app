@@ -37,15 +37,25 @@ class UserRenderer implements Renderer {
 
     public function __construct(User $user) {
         $this->prenom = $user->getPrenom();
-        $this->nb_touite = $user->getNbTouite();
-        $this->nb_suivis = count($user->getListeSuivie());
-        $this->nb_follow = count($user->getListeFollow());
     }
 
 
 
 
 
+
+
+    public function setNbTouite(int $nbTouite) {
+        $this->nb_touite = $nbTouite;
+    }
+
+    public function setNbSuivi(int $nbSuivi) {
+        $this->nb_suivis = $nbSuivi;
+    }
+
+    public function setNbFollow(int $nbFollow) {
+        $this->nb_follow = $nbFollow;
+    }
 
 
 
