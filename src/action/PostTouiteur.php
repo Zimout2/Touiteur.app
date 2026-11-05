@@ -8,7 +8,7 @@ class PostTouiteur extends Action {
 
     public function execute(): string {
         //permet de simuler un user co 
-        $_SESSION['user']['id_user'] = 1;
+        $_SESSION['user']['idUser'] = 1;
         if (!isset($_SESSION['user'])) {
             return "<p>Vous devez être connecté pour publier un touite.</p>";
         }
@@ -43,7 +43,7 @@ class PostTouiteur extends Action {
 
         //enregistre dans la base de donée le tag
         $repo = TouiteurRepository::getInstance();
-        $idUser = $_SESSION['user']['id_user'];
+        $idUser = $_SESSION['user']['idUser'];
         $idTouit = $repo->addTouit($texte, $idUser);
         foreach($tags as $tagNom){
             $repo->addTagToTouit($idTouit,$tagNom);
