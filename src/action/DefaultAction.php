@@ -43,7 +43,7 @@ class DefaultAction extends Action
                     $libelleTag = filter_var($tag['libelle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                     // Intégration d'un lien qui pointe vers la page des tags
                     $html .= "<p>{$message}<p>";
-                    $html .= "</p>Tag : <a href=\"?action=displayTag&id={$idTag}\">#{$libelleTag}</a> ";
+                    $html .= "</p><strong>Tag</strong> : <a href=\"?action=displayTag&id={$idTag}\">#{$libelleTag}</a> ";
                 }
                 $html .= "</p>";
             }
