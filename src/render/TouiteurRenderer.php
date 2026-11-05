@@ -5,7 +5,7 @@
 namespace touiteur\render;
 
 use touiteur\entite\User;
-use touiteur\touite\Touite;
+use touiteur\entite\Touite;
 
 
 class TouiteurRenderer implements Renderer {

@@ -24,6 +24,7 @@ $app->addRoute('accueil', DefaultAction::class);
 $app->addRoute('publication', PostTouiteur::class);
 $app->addRoute('displayTag', DisplayTag::class);
 $app->addRoute('inscription', InscriptionTouiteur::class);
+$app->addRoute('profil', DefaultAction::class);
 $app->addRoute('default', DefaultAction::class);
 $app->addRoute('connexion', ConnexionTouiteur::class);
 $app->addRoute('deconnexion', DeconnexionTouiteur::class);

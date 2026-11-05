@@ -33,7 +33,7 @@ class DisplayProfil extends Action {
             $profil->setNbFollow($infoProfil[0]);
             $profil->setNbSuivi($infoProfil[1]);
             $profil->setNbTouite($infoProfil[2]);
-            $html = $profil->render();
+            $html .= $profil->render();
             $html .= "<br>";
             foreach ($touiteUser as $touite) {
                 $touiteNew = new Touite($touite[0], $profilUser, $touite[2]);
@@ -52,7 +52,7 @@ class DisplayProfil extends Action {
             }
         </style>
 
-        <div class='profilt-container'>
+        <div class='profil-container'>
             {$html}
         </div>
         HTML;
