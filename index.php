@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+use touiteur\action\DisplayProfil;
 session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -25,7 +26,7 @@ $app->addRoute('accueil', DefaultAction::class);
 $app->addRoute('publication', PostTouiteur::class);
 $app->addRoute('displayTag', DisplayTag::class);
 $app->addRoute('inscription', InscriptionTouiteur::class);
-$app->addRoute('profil', DefaultAction::class);
+$app->addRoute('profil', DisplayProfil::class);
 $app->addRoute('default', DefaultAction::class);
 $app->addRoute('connexion', ConnexionTouiteur::class);
 $app->addRoute('deconnexion', DeconnexionTouiteur::class);
