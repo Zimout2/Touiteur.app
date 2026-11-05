@@ -17,7 +17,7 @@ class DisplayTag extends Action {
 
         $html  = "";
         $html .= "<div class='main-container'>";
-        $html .= "<h2>Liste de tous les tags et leurs touites</h2>";
+        $html .= "<h2>Liste de tous les tags et de leurs touites</h2>";
 
         foreach ($tag as $tags) {
             $idTag = (int) ($tags['idTag'] ?? 0);
@@ -37,7 +37,7 @@ class DisplayTag extends Action {
                     $idTouite = (int) ($touite['idTouite'] ?? 0);
 
                     $html .= "<div class=\"touite\">";
-                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a> à Touiter :</p>";
+                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a> a Touité :</p>";
                     $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
                     $html .= "</div>";
                 }
