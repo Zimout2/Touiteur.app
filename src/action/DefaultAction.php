@@ -17,7 +17,7 @@ class DefaultAction extends Action
         foreach ($touites as $t) {
             $html .= "<div class=\"touite\">";
             $html .= "<p><a href=\"?action=utilisateur&id={$t['idUser']}\">{$t['prenom']}</a></p>";
-            $html .= "<p><a href=\"?action=display-touite&id={$t['idTouite']}\">{$t['message']}</a></p>";
+            $html .= "<p>{$t['message']}</p>"; // <a href=\"?action=display-touite&id={$t['idTouite']}\">{$t['message']}</a>
             $html .= "</div>";
         }
         return <<<HTML

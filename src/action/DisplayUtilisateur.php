@@ -14,13 +14,15 @@ class DisplayUtilisateur extends Action {
             return "<p>Erreur : Utilisateur introuvable.</p>";
         }
         $html  = "";
-        $html .= "<div class='main-container'>";
+        $html .= "<div class='main-containe'>";
         $html .= "<h2>Liste de tous les Utilisateurs</h2>";
+
         foreach ($user_list as $users) {
             $prenom = filter_var($users["prenom"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $nb_followers = $users['nb_followers'] ?? 0;
-            $html .= "<div class='touite-tag'>";
-            $html .= "<p>$prenom - Follower : $nb_followers</p>";
+            $id = filter_var($users['idUser'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $html .= "<div class='touite-ta'>";
+            $html .= "<p class='align-center'><strong>$prenom</strong></p>";
             $html .= "</div>";
         }
         $html .= "</div>";
@@ -28,9 +30,15 @@ class DisplayUtilisateur extends Action {
         <style>
             .tag-container {
                 max-width: 600px;
-                margin: 0 auto; /* Centre le conteneur principal sur la page */
-                text-align: center; /* Centre le texte à l'intérieur */
+                margin: 0 auto;
                 font-family: Arial, sans-serif;
+                text-align: center;
+            }
+            .align-left {
+                text-align: left;
+            }
+            .align-right {
+                text-align: right;
             }
         </style>
 
