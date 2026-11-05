@@ -33,9 +33,12 @@ class DisplayTag extends Action {
                 foreach ($touitesDuTag as $touite) {
                     $message = filter_var($touite['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                     $auteur = filter_var($touite["auteur"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-                    $html .= "<div class='touite-tag'>";
-                    $html .= "<p>$auteur à Touiter : </p>";
-                    $html .= "<p>$message</p>";
+                    $idUser = (int) ($touite['idUser'] ?? 0);
+                    $idTouite = (int) ($touite['idTouite'] ?? 0);
+
+                    $html .= "<div class=\"touite\">";
+                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a></p>";
+                    $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
                     $html .= "</div>";
                 }
             }
