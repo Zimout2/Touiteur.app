@@ -89,6 +89,20 @@ class TouiteurRepository{
         $stmt->execute(['idTouite' => $idTouite, 'message' => $texte, 'idUser' => $idUser]);
         $stmt = $this->pdo->prepare("UPDATE Users SET nbTouite = nbTouite + 1 WHERE idUser = :idUser");
         $stmt->execute(['idUser' => $idUser]);
+
+        $idTouite = (int) $this->pdo->lastInsertId();
+
+        if (!empty($tagIds)) {
+            $queryLink = "INSERT INTO tag2touite (idTag, idTouite) VALUES (:idTag, :idTouite)";
+            $stmtLink = $this->pdo->prepare($queryLink);
+
+            foreach ($tagIds as $idTag) {
+                $stmtLink->execute([
+                    'idTag' => $idTag,
+                    'idTouite' => $idTouite
+                ]);
+            }
+        }
         return $idTouite;
     }
     public function addTagToTouit(int $idTouit , string $tagNom):void {

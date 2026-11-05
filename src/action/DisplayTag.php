@@ -28,7 +28,7 @@ class DisplayTag extends Action {
             $html .= "<div class='tag-container'>";
             $html .= "<h2>Touites associés au tag #{$libelleTag}</h2>";
             if (empty($touitesDuTag)) {
-                $html .= "<p>Erreur : Tag introuvable.</p>";
+                $html .= "<p>Aucun touite associé à ce tag.</p>";
             } else {
                 foreach ($touitesDuTag as $touite) {
                     $message = filter_var($touite['message'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
