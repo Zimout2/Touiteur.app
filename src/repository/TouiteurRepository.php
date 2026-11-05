@@ -60,7 +60,7 @@ class TouiteurRepository{
      * @return array qui est le type de contenue renvoyer par cette méthode
      */
     public function getTag() : array {
-        $query = "SELECT DISTINCT libelle FROM tag WHERE libelle IS NOT NULL";
+        $query = "SELECT DISTINCT libelle, idTag FROM tag WHERE libelle IS NOT NULL";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
