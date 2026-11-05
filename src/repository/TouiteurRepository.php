@@ -231,12 +231,12 @@ class TouiteurRepository{
 
     public function getInfoProfil(int $idUser) {
         $query = "select 
-                    (select count(*) from Follow where idFollow = :idUser) as abo,
-                    (select count(*) from Follow where idFollower = :idUser) as follower,
-                    (select count(*) from Touite where idUser = :idUser) as touite";
+                    (select count(*) from Follow where idFollow = ?) as abo,
+                    (select count(*) from Follow where idFollower = ?) as follower,
+                    (select count(*) from Touite where idUser = ?) as touite";
     
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(['idUser' => $idUser]);
+        $stmt->execute([$idUser, $idUser, $idUser]);
         return $stmt->fetch(PDO::FETCH_NUM) ?: [0, 0, 0];
     }
 
