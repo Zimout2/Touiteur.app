@@ -213,27 +213,31 @@ class TouiteurRepository{
 
 
     public function getProfilPerso(int $idUser) {
-        $query = "select prenom, email, idUser
-                  from Users
+        $query = "select prenom, email, idUser 
+                  from Users 
                   where idUser = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
-        $user = new User($stmt->fetchColumn(0), $stmt->fetchColumn(1), $stmt->fetchColumn(2));
-        return $user;
+        
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            return null;
+        }
+
+        return new User($row['prenom'], $row['email'], (int)$row['idUser']);
     }
 
 
 
     public function getInfoProfil(int $idUser) {
-        $query = "select count(idFollow) as abo, count(idFollower) as follower, count(idTouite) as touite
-                  from Users inner join Follow
-                  on Users.idUser = Follow.idFollow and Users.idUser = Follow.idFollower
-                             inner join Touite
-                  on Users.idUser = Touite.idUser
-                  where Users.idUser = :idUser";
+        $query = "select 
+                    (select count(*) from Follow where idFollow = :idUser) as abo,
+                    (select count(*) from Follow where idFollower = :idUser) as follower,
+                    (select count(*) from Touite where idUser = :idUser) as touite";
+    
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_NUM) ?: [0, 0, 0];
     }
 
 
@@ -245,7 +249,7 @@ class TouiteurRepository{
                   from Touite
                   where Touite.idUser = :idUser";
         $stmt = $this->pdo->prepare($query);
-        $stmt = execute(['idUser' => $idUser]);
+        $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
