@@ -150,4 +150,14 @@ class TouiteurRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getUsersTriFollowers() {
+        $query = "SELECT U.idUser, U.prenom, COUNT(F.idFollow) AS nb_followers 
+              FROM User U 
+              LEFT JOIN Follow F ON U.idUser = F.idFollow 
+              GROUP BY U.idUser, U.prenom 
+              ORDER BY nb_followers DESC";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
