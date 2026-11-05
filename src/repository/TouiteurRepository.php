@@ -199,7 +199,7 @@ class TouiteurRepository{
     public function getFollowedTagsByUser(int $idUser): array {
         $query = "SELECT t.idTag, t.libelle 
               FROM Tag t 
-              JOIN followtag f ON t.idTag = f.idTag 
+              JOIN Followtag f ON t.idTag = f.idTag 
               WHERE f.idUser = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
