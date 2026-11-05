@@ -37,29 +37,22 @@ class TouiteurRepository{
         return self::$instance;
     }
 
-    public function getTouitById(int $id): ?array {
-        $query = "SELECT t.id_touite AS id, 
-                     t.message AS texte, 
-                     t.date AS date_publication, 
-                     t.likes AS score, 
-                     u.prenom AS auteur 
-              FROM Touite t 
-              JOIN User u ON t.id_user = u.id_user 
-              WHERE t.id_touite = :id";
-
+    public function getTagById(int $id) : array {
+        $query = "SELECT libelle FROM tag WHERE idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
     }
 
-    public function getTagById(int $id) : array {
-        $query = "SELECT Ta.id_tag AS id, Ta.id_tuites, Ta.libellle AS texte FROM tag Ta, touite To WHERE Ta.id_touites = To.id_touites AND Ta.id_touite = :id";
+    public function getTouitesByTag(int $id) : array {
+        $query = "SELECT T.idTouite, Touit.message, U.prenom AS auteur 
+              FROM tag2touite T 
+              JOIN touite Touit ON Touit.idTouite = T.idTouite 
+              JOIN users U ON U.idUser = Touit.idUser 
+              WHERE T.idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: [];
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
     /**
@@ -141,14 +134,14 @@ class TouiteurRepository{
 
     public function prenomOuEmailExiste(string $prenom, string $email): bool
     {
-        $stmt = $this->pdo->prepare("SELECT id_user FROM User WHERE prenom = :prenom OR email = :email");
+        $stmt = $this->pdo->prepare("SELECT idUser FROM Users WHERE prenom = :prenom OR email = :email");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
     }
 
     public function addUser(string $prenom, string $email): int
     {
-        $stmt = $this->pdo->prepare("INSERT INTO User (prenom, email) VALUES (:prenom, :email)");
+        $stmt = $this->pdo->prepare("INSERT INTO Users (prenom, email) VALUES (:prenom, :email)");
         $stmt->execute(['prenom' => $prenom, 'email' => $email]);
         return $this->pdo->lastInsertId();
     }

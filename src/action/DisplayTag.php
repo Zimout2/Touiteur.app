@@ -20,11 +20,13 @@ class DisplayTag extends Action {
         $html .= "<h2>Liste de tous les tags et leurs touites</h2>";
 
         foreach ($tag as $tags) {
-            $id = filter_var($tags['idTouites'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $touitesDuTag = $repo->getTouiteByTagId($id);
+            $idTag = (int) ($tags['idTag'] ?? 0);
+            $libelleTag = filter_var($tags['libelle'] ?? 'Inconnu', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            $touitesDuTag = $repo->getTouitesByTag($idTag);
 
             $html .= "<div class='tag-container'>";
-            $html .= "<h2>Touites associés aux tags #{$touitesDuTag}</h2>";
+            $html .= "<h2>Touites associés au tag #{$libelleTag}</h2>";
             if (empty($touitesDuTag)) {
                 $html .= "<p>Erreur : Tag introuvable.</p>";
             } else {
