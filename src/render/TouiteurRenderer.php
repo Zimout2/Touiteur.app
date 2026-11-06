@@ -88,7 +88,7 @@ class TouiteurRenderer implements Renderer {
             }
             $html .= "</p>";
         }
-        $html .= "<small>" . $this->date . "</small>";
+        $html .= "<small>Publié le : " . $this->date . "</small>";
         //$html .= "<small> Like : " . $this->like . "</small>";
         $html .= "<br>";
 
