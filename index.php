@@ -17,6 +17,8 @@ use touiteur\action\ConnexionTouiteur;
 use touiteur\action\DeconnexionTouiteur;
 use touiteur\action\DisplayUtilisateur;
 use touiteur\action\DisplayFollowTag;
+use touiteur\action\ActionFollow;
+use touiteur\action\ActionUnfollow;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
@@ -33,4 +35,6 @@ $app->addRoute('deconnexion', DeconnexionTouiteur::class);
 $app->addRoute('utilisateur', DisplayUtilisateur::class);
 $app->addRoute('followtag', DisplayTag::class);
 $app->addRoute('follow-tag', FollowTagAction::class);
+$app->addRoute('follow', ActionFollow::class);
+$app->addRoute('unfollow', ActionUnfollow::class);
 echo $app->run();
