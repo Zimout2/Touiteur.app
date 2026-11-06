@@ -17,6 +17,7 @@ use touiteur\action\DisplayUtilisateur;
 use touiteur\action\DisplayFollowTag;
 use touiteur\action\DisplayProfil;
 use touiteur\action\TagTouiteur;
+use touiteur\action\DisplayTouitsAbonne;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
@@ -34,5 +35,6 @@ $app->addRoute('utilisateur', DisplayUtilisateur::class);
 $app->addRoute('followtag', DisplayTag::class);
 $app->addRoute('follow-tag', FollowTagAction::class);
 $app->addRoute('profil-tag', TagTouiteur::class);
+$app->addRoute('Abonnements', DisplayTouitsAbonne::class);
 
 echo $app->run();
