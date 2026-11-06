@@ -244,7 +244,7 @@ class TouiteurRepository{
     }
 
     public function getTouiteByUser(int $idUser) {
-        $query = "select Touite.message, Touite.dateTouite, Touite.idUser
+        $query = "select Touite.message, Touite.dateTouite, Touite.idUser, Touite.idTouite
                   from Touite
                   where Touite.idUser = :idUser
                   order by Touite.dateTouite desc";

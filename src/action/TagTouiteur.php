@@ -33,6 +33,7 @@
             foreach ($touites as $to) {
                 $user = new User(
                     $to['auteur'] ?? 'Inconnu',
+                    '',
                     $to['idUser'] ?? 0,
                 );
                 $new_touite = new Touite(

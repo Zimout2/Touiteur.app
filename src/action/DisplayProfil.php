@@ -61,7 +61,8 @@ class   DisplayProfil extends Action {
             $html .= "<br><div class='touites-list'>";
             foreach ($touiteUser as $touite) {
                 $touiteNew = new Touite($touite['message'], $profilUser, $touite['dateTouite']);
-                $renderTouite = new TouiteurRenderer($touiteNew);
+                $tags  = $repo->getTagsByTouite($touite['idTouite']);
+                $renderTouite = new TouiteurRenderer($touiteNew, $tags);
                 $html .= $renderTouite->render();
             }
             $html .= "</div>";
