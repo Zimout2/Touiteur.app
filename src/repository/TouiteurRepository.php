@@ -159,12 +159,12 @@ class TouiteurRepository{
 
     /**
      * Méthode qui permet d'obtenir tout les utilisateurs de la base de données
-     * @return void
+     * @return array
      */
     public function getUser() : array {
         $stmt = $this->pdo->prepare("SELECT prenom FROM Users");
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -287,8 +287,8 @@ class TouiteurRepository{
         $query = "select distinct t.* from touite t left join author_tag at on t.id = at.touite_id 
         where t.user_id in (select following_id from follower where user_id = :userId) or at.tag_id in 
         (select tag_id from tag_follower where user_id = :userId) order by t.date desc";
-    $stmt = $this->pdo->prepare($query);
-    $stmt->execute(['userId' => $userId]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['userId1' => $userId, 'userId2' => $userId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 }
