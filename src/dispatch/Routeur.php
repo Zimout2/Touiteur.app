@@ -50,6 +50,8 @@ class Routeur{
                 <p></p>
                 <a href="?action=follow-tag">Follow Tag</a>
                 <p></p>
+                <a href="?action=profil-tag">Profil Tag</a>
+                <p></p>
                 <a href="?action=inscription">Inscription</a>
                 <p></p>
                 <a href="?action=connexion">Connexion</a>

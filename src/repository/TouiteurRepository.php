@@ -39,7 +39,7 @@ class TouiteurRepository{
     }
 
     public function getTagById(int $id) : array {
-        $query = "SELECT libelle FROM Tag WHERE idTag = :id";
+        $query = "SELECT libelle, idTag FROM Tag WHERE idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];

@@ -17,6 +17,7 @@ use touiteur\action\ConnexionTouiteur;
 use touiteur\action\DeconnexionTouiteur;
 use touiteur\action\DisplayUtilisateur;
 use touiteur\action\DisplayFollowTag;
+use touiteur\action\TagTouiteur;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
