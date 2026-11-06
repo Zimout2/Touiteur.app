@@ -46,7 +46,7 @@ class TouiteurRepository{
     }
 
     public function getTouitesByTag(int $id) : array {
-        $query = "SELECT T.idTouite, Touit.message, U.prenom as auteur, U.idUser
+        $query = "SELECT T.idTouite, Touit.message, Touit.dateTouite, U.prenom as auteur, U.idUser
               FROM Tag2Touite T 
               JOIN Touite Touit ON Touit.idTouite = T.idTouite 
               JOIN Users U ON U.idUser = Touit.idUser 
