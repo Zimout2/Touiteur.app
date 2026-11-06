@@ -37,7 +37,7 @@
                 );
                 $new_touite = new Touite(
                     $to['message'] ?? '',
-                    $user, // <-- On passe l'objet User ici
+                    $user,
                     $to['dateTouite'] ?? '',
                     (int)($to['likeTouite'] ?? 0)
                 );
