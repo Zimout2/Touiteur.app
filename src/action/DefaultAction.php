@@ -31,6 +31,7 @@ class DefaultAction extends Action
             $html .= "<div class=\"touite\">";
 
             $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$prenom}</a></p>";
+
             // Cette boucle permet de parcourir l'ensemble des tags issuent du touites
             if (!empty($tagsDuTouite)) {
                 foreach ($tagsDuTouite as $tag) {

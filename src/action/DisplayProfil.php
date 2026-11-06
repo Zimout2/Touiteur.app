@@ -7,7 +7,7 @@ use touiteur\render\UserRenderer;
 use touiteur\render\TouiteurRenderer;
 use touiteur\entite\Touite;
 
-class DisplayProfil extends Action {
+class   DisplayProfil extends Action {
 
     public function execute(): string {
 
