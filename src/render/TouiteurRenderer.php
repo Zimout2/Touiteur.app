@@ -1,41 +1,17 @@
 <?php
 
-
-
 namespace touiteur\render;
 
 use touiteur\entite\User;
 use touiteur\entite\Touite;
 
-
 class TouiteurRenderer implements Renderer {
-
-
-
-
-
-
-
-
-
-
 
     private string $message;
     private User $user;
     private string $date;
     private ?int $likes = 0;
     private array $tags; 
-
-
-
-
-
-
-
-
-
-
-
 
     public function __construct(Touite $t , array $tags = []) {
         $this->message = $t->getMessage();
@@ -44,26 +20,6 @@ class TouiteurRenderer implements Renderer {
         $this->likes = $t->getLikes();
         $this->tags = $tags;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function render(): string {
         $messageCourt = substr($this->message, 0, 100);
@@ -94,8 +50,4 @@ class TouiteurRenderer implements Renderer {
 
         return $html;
     }
-
-
-
-
 }
