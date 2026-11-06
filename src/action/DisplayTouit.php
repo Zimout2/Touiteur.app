@@ -3,6 +3,9 @@
 namespace touiteur\action; 
 
 use touiteur\repository\TouiteurRepository;
+use touiteur\entite\user;
+use touiteur\entite\Touite;
+use touiteur\render\TouiteurRenderer ;
 
 class DisplayTouit extends Action {
 
@@ -15,17 +18,32 @@ class DisplayTouit extends Action {
 
         $repo = TouiteurRepository::getInstance();
         //a faire la methode getTOuitById psq y'a meme pas encore le dossier repo j'invente psq y'a meme pas encore la base de donnée
-        $touit = $repo->getTouitById($id);
+        $ligne = $repo->getTouitById($id);
+        if (is_null($ligne)){
+            return "<p>le touite n'existe pas </p>";
+        }
 
-        $html = "<div class=\"touit-detail\">";
-        $html .= "<h2>Touite de " . filter_var($touit['auteur'], FILTER_SANITIZE_STRING) . "</h2>";
-        $html .= "<p class=\"texte\">" . nl2br(filter_var($touit['texte'], FILTER_SANITIZE_STRING)) . "</p>";
-        $html .= "<div class=\"touit-meta\">";
-        $html .= "<p>Publié le : " . $touit['date_publication'] . "</p>";
-        $html .= "<p>Score : <strong>" . $touit['score'] . "</strong></p>";
+        $message = $this->retirerTags($ligne['message']);
+        $auteur = new User($ligne['prenom'], '', $ligne['idUser']);
+        $touite = new Touite($message, $auteur, $ligne['dateTouite'], $ligne['likeTouite'], $ligne['idTouite']);
+        
+        $renderer = new TouiteurRenderer($touite);
+        $html = "<div class=\"touite-detail\">";
+        $html .= $renderer->render();
+
+        // Les tags du touite, cliquables
+        $tags = $repo->getTagsByTouite($id);
+        if (count($tags) > 0) {
+            $html .= "<p>Tag :";
+            foreach ($tags as $tag) {
+                $html .= " <a href=\"?action=displayTag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
+            }
+            $html .= "</p>";
+        }
+
+        $html .= "<a href=\"?action=accueil\">← Retour à la liste</a>";
         $html .= "</div>";
-        $html .= "<br><a href=\"?action=default\">← Retour à la liste</a>";
-        $html .= "</div>";
+
 
         return <<<HTML
         <style>
