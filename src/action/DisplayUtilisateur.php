@@ -14,15 +14,15 @@ class DisplayUtilisateur extends Action {
             return "<p>Erreur : Utilisateur introuvable.</p>";
         }
         $html  = "";
-        $html .= "<div class='main-containe'>";
+        $html .= "<div class='main-container'>";
         $html .= "<h2>Liste de tous les Utilisateurs</h2>";
 
-        foreach ($user_list as $users) {
-            $prenom = filter_var($users["prenom"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-            $id = filter_var($users['idUser'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+        foreach ($user_list as $user) {
+            $prenom = filter_var($user["prenom"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+            $id = filter_var($user['idUser'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $html .= "<div class='touite-ta'>";
-            $html .= "<p class='align-center'><strong>$prenom</strong></p>"; // LIEN VERS PROFIL
+            $html .= "<p class='align-center'><strong><a href='index.php?action=profil&id={$id}'>{$prenom}</a></strong></p>"; // LIEN VERS PROFIL
             $html .= "</div>";
         }
         $html .= "</div>";
