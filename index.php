@@ -34,4 +34,5 @@ $app->addRoute('utilisateur', DisplayUtilisateur::class);
 $app->addRoute('followtag', DisplayTag::class);
 $app->addRoute('follow-tag', FollowTagAction::class);
 $app->addRoute('profil-tag', TagTouiteur::class);
+
 echo $app->run();
