@@ -39,7 +39,7 @@ class TouiteurRepository{
     }
 
     public function getTagById(int $id) : array {
-        $query = "SELECT libelle FROM Tag WHERE idTag = :id";
+        $query = "SELECT libelle, idTag FROM Tag WHERE idTag = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: [];
@@ -280,6 +280,37 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
+
+
+    public function isFollowing(int $idSuiveur, int $idSuivi): bool {
+        //On compte le nombre de ligne en fonction de l'ID (c'est malin hein ?)
+        $query = "select count(*) 
+                  from Follow 
+                  where idFollower = :idSuiveur and idFollow = :idSuivi";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi'   => $idSuivi]);
+        // Si count > 0, ça renvoie true, sinon false
+        return ($stmt->fetchColumn() > 0);
+    }
+
+
+
+
+
+    public function addFollow(int $idSuiveur, int $idSuivi) {
+        $query = "insert into Follow (idFollower, idFollow) values (:idSuiveur, :idSuivi)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);
+    }
+
+    public function removeFollow(int $idSuiveur, int $idSuivi) {
+        $query = "delete from Follow where idFollower = :idSuiveur and idFollow = :idSuivi";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);
     }
 
 
