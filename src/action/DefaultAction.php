@@ -4,7 +4,6 @@ namespace touiteur\action ;
 
 use touiteur\repository\TouiteurRepository;
 
-
 class DefaultAction extends Action
 {
     public function execute(): string {
@@ -31,20 +30,17 @@ class DefaultAction extends Action
             $html .= "<div class=\"touite\">";
 
             $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$prenom}</a></p>";
+            $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
 
             // Cette boucle permet de parcourir l'ensemble des tags issuent du touites
-            if (!empty($tagsDuTouite)) {
-                foreach ($tagsDuTouite as $tag) {
-                    $idTag = (int) ($tag['idTag'] ?? 0);
-                    // On filtre le libelle du Tag
-                    $libelleTag = filter_var($tag['libelle'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-                    // Intégration d'un lien qui pointe vers la page des tags
-                    $html .= "<p>{$message} <a href=\"?action=displayTag&id={$idTag}\">#{$libelleTag}</a></p>";
+            $tags = $obj->getTagsByTouite($idTouite);
+            if (count($tags) > 0) {
+                $html .= "<p>Tag :";
+                foreach ($tags as $tag) {
+                    $html .= " <a href=\"?action=displayTag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
                 }
                 $html .= "</p>";
-            } else {
-                $html .= "<p>{$message}</p>";
-            }
+            } 
             $html .= "</div>";
         }
         return <<<HTML
