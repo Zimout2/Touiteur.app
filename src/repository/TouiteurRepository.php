@@ -159,12 +159,12 @@ class TouiteurRepository{
 
     /**
      * Méthode qui permet d'obtenir tout les utilisateurs de la base de données
-     * @return void
+     * @return array
      */
     public function getUser() : array {
         $stmt = $this->pdo->prepare("SELECT prenom FROM Users");
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
