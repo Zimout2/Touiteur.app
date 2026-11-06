@@ -29,7 +29,8 @@ class DisplayTag extends Action {
             if (empty($touitesDuTag)) {
                 $html .= "<p>Aucun touite associé à ce tag.</p>";
             } else {
-                $html .= "<p><a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";                $html .= "<p></p>";
+                $html .= "<p><a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";
+                $html .= "<p></p>";
             }
         }
         $html .= "</div>";
