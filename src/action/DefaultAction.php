@@ -3,6 +3,9 @@
 namespace touiteur\action ;
 
 use touiteur\repository\TouiteurRepository;
+use touiteur\entite\User;
+use touiteur\entite\Touite;
+use touiteur\render\TouiteurRenderer;
 
 class DefaultAction extends Action
 {
@@ -16,33 +19,19 @@ class DefaultAction extends Action
             return "<p>Aucun touite pour le moment.</p>";
         }
         $html = "<h2>Derniers touites</h2>";
+       // Pour chaque touite 
         foreach ($touites as $t) {
-            $idTouite = (int) ($t['idTouite'] ?? 0);
+            $auteur = new User($t['prenom'], '', $t['idUser']);
+            $touite = new Touite($this->retirerTags($t['message']), $auteur, $t['dateTouite']);
 
-            
-            $message = $this->retirerTags($t['message']);
+            // On récupère les tags de ce touite dans la base
+            $tags = $obj->getTagsByTouite($t['idTouite']);
 
-            $prenom = $t['prenom'];
-            $idUser = (int) ($t['idUser'] ?? 0);
-
-            $tagsDuTouite = $obj->getTagsByTouite($idTouite);
-
-            $html .= "<div class=\"touite\">";
-
-            $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$prenom}</a></p>";
-            $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
-
-            // Cette boucle permet de parcourir l'ensemble des tags issuent du touites
-            $tags = $obj->getTagsByTouite($idTouite);
-            if (count($tags) > 0) {
-                $html .= "<p>Tag :";
-                foreach ($tags as $tag) {
-                    $html .= " <a href=\"?action=displayTag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
-                }
-                $html .= "</p>";
-            } 
-            $html .= "</div>";
+            // Le renderer construit le HTML du touite (auteur, message, tags, date)
+            $renderer = new TouiteurRenderer($touite, $tags);
+            $html .= $renderer->render();
         }
+
         return <<<HTML
             <style>
                .tag-container {

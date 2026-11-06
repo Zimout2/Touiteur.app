@@ -24,6 +24,7 @@ class TouiteurRenderer implements Renderer {
     private User $user;
     private string $date;
     private ?int $likes = 0;
+    private array $tags; 
 
 
 
@@ -36,11 +37,12 @@ class TouiteurRenderer implements Renderer {
 
 
 
-    public function __construct(Touite $t) {
+    public function __construct(Touite $t , array $tags = []) {
         $this->message = $t->getMessage();
         $this->user = $t->getUser();
         $this->date = $t->getDate();
         $this->likes = $t->getLikes();
+        $this->tags = $tags;
     }
 
 
@@ -77,6 +79,14 @@ class TouiteurRenderer implements Renderer {
             $html .= "</details>";
         } else {
             $html .= "<p>" . $this->message . "</p>";
+        }
+        // Les tags du touite cliquables
+        if (count($this->tags) > 0) {
+            $html .= "<p>Tag :";
+            foreach ($this->tags as $tag) {
+                $html .= " <a href=\"?action=displayTag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
+            }
+            $html .= "</p>";
         }
         $html .= "<small>" . $this->date . "</small>";
         //$html .= "<small> Like : " . $this->like . "</small>";

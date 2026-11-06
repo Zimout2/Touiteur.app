@@ -25,7 +25,7 @@ class DisplayTouit extends Action {
 
         $message = $this->retirerTags($ligne['message']);
         $auteur = new User($ligne['prenom'], '', $ligne['idUser']);
-        $touite = new Touite($message, $auteur, $ligne['dateTouite'], $ligne['likeTouite'], $ligne['idTouite']);
+        $touite = new Touite($message, $auteur, $ligne['dateTouite']);
         
         $renderer = new TouiteurRenderer($touite);
         $html = "<div class=\"touite-detail\">";
