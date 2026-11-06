@@ -206,6 +206,18 @@ class TouiteurRepository{
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
     }
 
+    
+
+    public function getTouitById(int $id): ?array{
+        $query = "SELECT t.idTouite, t.message, t.dateTouite, t.likeTouite, u.idUser, u.prenom
+                FROM Touite t
+                JOIN Users u ON t.idUser = u.idUser
+                WHERE t.idTouite = :id";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['id' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
+    }
 
 
 
