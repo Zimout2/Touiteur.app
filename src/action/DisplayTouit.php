@@ -18,8 +18,8 @@ class DisplayTouit extends Action {
 
         $repo = TouiteurRepository::getInstance();
         //a faire la methode getTOuitById psq y'a meme pas encore le dossier repo j'invente psq y'a meme pas encore la base de donnée
-        $touit = $repo->getTouitById($id);
-        if (is_null($touit)){
+        $ligne = $repo->getTouitById($id);
+        if (is_null($ligne)){
             return "<p>le touite n'existe pas </p>";
         }
 
