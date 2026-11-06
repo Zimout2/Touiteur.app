@@ -263,7 +263,8 @@ class TouiteurRepository{
     public function getTouiteByUser(int $idUser) {
         $query = "select Touite.message, Touite.dateTouite, Touite.idUser
                   from Touite
-                  where Touite.idUser = :idUser";
+                  where Touite.idUser = :idUser
+                  order by Touite.dateTouite desc";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
