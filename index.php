@@ -37,4 +37,6 @@ $app->addRoute('followtag', DisplayTag::class);
 $app->addRoute('follow-tag', FollowTagAction::class);
 $app->addRoute('follow', ActionFollow::class);
 $app->addRoute('unfollow', ActionUnfollow::class);
+$app->addRoute('profil-tag', TagTouiteur::class);
+
 echo $app->run();

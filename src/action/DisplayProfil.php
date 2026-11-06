@@ -7,7 +7,7 @@ use touiteur\render\UserRenderer;
 use touiteur\render\TouiteurRenderer;
 use touiteur\entite\Touite;
 
-class DisplayProfil extends Action {
+class   DisplayProfil extends Action {
 
     public function execute(): string {
 
@@ -22,7 +22,6 @@ class DisplayProfil extends Action {
 
 
 
-        $idUser = $_GET['id'] ?? $_SESSION['user']['idUser'] ?? null;
         $profilUser = $repo->getProfilPerso($idUserProfil);
         $infoProfil = $repo->getInfoProfil($idUserProfil);
         $touiteUser = $repo->getTouiteByUser($idUserProfil);

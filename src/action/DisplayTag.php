@@ -17,38 +17,24 @@ class DisplayTag extends Action {
       
         $html  = "";
         $html .= "<div class='main-container'>";
-        $html .= "<h2>Liste de tous les tags et de leurs touites</h2>";
 
+        $html .= "<div class='tag-container'>";
+        $html .= "<h2>Listes des tags :</h2>";
         foreach ($tag as $tags) {
             $idTag = (int) ($tags['idTag'] ?? 0);
             $libelleTag = filter_var($tags['libelle'] ?? 'Inconnu', FILTER_SANITIZE_SPECIAL_CHARS);
 
             $touitesDuTag = $repo->getTouitesByTag($idTag);
 
-            $html .= "<div class='tag-container'>";
-            $html .= "<h2>Touites associés au tag #{$libelleTag}</h2>";
             if (empty($touitesDuTag)) {
                 $html .= "<p>Aucun touite associé à ce tag.</p>";
             } else {
-                foreach ($touitesDuTag as $touite) {
-                    $message = $this->retirerTags($touite['message']);
-                    $auteur = filter_var($touite["auteur"] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-                    $idUser = (int) ($touite['idUser'] ?? 0);
-                    $idTouite = (int) ($touite['idTouite'] ?? 0);
-
-                    $html .= "<div class=\"touite\">";
-                    $html .= "<p><a href=\"?action=utilisateur&id={$idUser}\">{$auteur}</a> a Touité :</p>";
-                    $html .= "<p><a href=\"?action=display-touite&id={$idTouite}\">{$message}</a></p>";
-                    $html .= "</div>";
-                }
+                $html .= $libelleTag;
+                $html .= "<p></p>";
             }
-            $html .= "<form method=\"POST\" action=\"?action=follow-tag\">";
-            $html .= "<input type=\"hidden\" name=\"idTag\" value=\"{$idTag}\">";
-            $html .= "<button type=\"submit\">Suivre ce tag</button>";
-            $html .= "</form>";
-            $html .= "</div>";
         }
         $html .= "</div>";
+
         return <<<HTML
         <style>
             .tag-container {

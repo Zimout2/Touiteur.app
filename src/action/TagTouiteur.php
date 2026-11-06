@@ -2,66 +2,49 @@
 
 namespace touiteur\action ;
 
-//use...
-
+use touiteur\repository\TouiteurRepository;
+use touiteur\entite\Tag;
+use touiteur\render\TagRenderer;
 
 class TagTouiteur extends Action {
 
     public function execute(): string {
-        return <<<HTML
-        <!DOCTYPE html>
-        <html lang="fr">
-        <head>
-            <meta charset="UTF-8">
-            <style>
-                /* Conteneur de la liste */
-                .user-list {
-                    width: 50%;
-                    margin: 20px auto;
-                }
-        
-                /* Chaque ligne d'utilisateur : met le texte à gauche et le bouton à droite sur la même ligne */
-                .user-item {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    padding: 10px 0;
-                    border-bottom: 1px solid #ddd;
-                }
-        
-                .user-name {
-                    font-weight: bold;
-                }
-            </style>
-        </head>
-        <body>
-        
-        <div class="main-container">
-        
-                <div class="user-list">
-                    <div class="user-item">
-                        <span class="user-name">Tag 1</span>
-                    </div>
-                    
-                    <div class="user-item">
-                        <span class="user-name">Tag 2</span>
-                    </div>
-                    
-                    <div class="user-item">
-                        <span class="user-name">Tag 3</span>
-                    </div>
-                    
-                </div>
+        $idTag = $_GET['id'] ?? $_SESSION['tag']['idTag'] ?? null;
 
-            </main>
+        if (!$idTag) {
+            return "<div class='profil-container'><p>Aucun tag n'est associé à ce tag.</p></div>";
+        }
+
+        $repo = TouiteurRepository::getInstance();
+
+
+        $tag = $repo->getTagById($idTag);
+        $touites = $repo->getTouitesByTag($idTag);
+
+        if (empty($tag)) {
+            return "<div class='profil-container'><p>Tag introuvable.</p></div>";
+        }
+
+        $t = new Tag($tag['libelle']);
+        $renderer = new TagRenderer($t, $touites);
+        $html = $renderer->render();
+
+        return <<<HTML
+        <style>
+            .profil-container {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+                font-family: Arial, sans-serif;
+            }
+            .touites-list {
+                margin-top: 20px;
+            }
+        </style>
+
+        <div class='profil-container'>
+            {$html}
         </div>
-        
-        </body>
-        </html>
         HTML;
     }
-
-
-
-
 }
