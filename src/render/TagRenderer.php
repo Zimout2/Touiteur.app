@@ -23,6 +23,7 @@ class TagRenderer implements Renderer {
     private ?string $description = null;
     private ?int $nb_suivis = 0;
     private ?int $nb_touite = 0;
+    private array $touites = [];
 
 
 
@@ -35,10 +36,12 @@ class TagRenderer implements Renderer {
 
 
 
-    public function __construct(Tag $tag) {
+    public function __construct(Tag $tag, array $touites = []) {
         $this->libelle = $tag->getLibelle();
-        $this->nb_touite = count($tag->getListe_Touites());
+        $this->nb_touite = count($touites);
         $this->nb_suivis = count($tag->getListeSuivie());
+        $this->nb_suivis = 0;
+        $this->touites = $touites;
     }
 
 
@@ -62,13 +65,23 @@ class TagRenderer implements Renderer {
 
 
     public function render(): string {
-        $html = "<h2>" . $this->libelle . "</h2>";
-        if ($this->description != null) {
-            $html .= "<p>" . $this->description . "</p>";
-        }
+        $libelleTag = filter_var($this->libelle, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $html = "";
+        $html .= "<h2>Titre du tag : #$libelleTag</h2>";
         $html .= "<p>Nombre de suivis : " . $this->nb_suivis . "</p>";
         $html .= "<p>Nombre de touites : " . $this->nb_touite . "</p>";
-        $html .= "<h3>Touites</h3>";
+
+        if (empty($this->touites)) {
+            $html .= "<p>Aucun touite pour le moment n'est associé à ce tag.</p>";
+        } else {
+            $html .= "<div class='touites-list'>";
+            foreach ($this->touites as $touiteHtml) {
+                $html .= $touiteHtml;
+                $html .= "</div>";
+            }
+        }
+
         return $html;
     }
 

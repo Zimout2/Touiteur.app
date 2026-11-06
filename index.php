@@ -10,13 +10,12 @@ use touiteur\action\FollowTagAction;
 use touiteur\dispatch\Routeur;
 use touiteur\action\DefaultAction;
 use touiteur\action\PostTouiteur;
-use touiteur\action\UserTouiteur;
 use touiteur\repository\TouiteurRepository;
 use touiteur\action\InscriptionTouiteur;
 use touiteur\action\ConnexionTouiteur;
 use touiteur\action\DeconnexionTouiteur;
 use touiteur\action\DisplayUtilisateur;
-use touiteur\action\DisplayFollowTag;
+use touiteur\action\TagTouiteur;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
