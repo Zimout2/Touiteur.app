@@ -57,6 +57,8 @@ class Routeur{
                 <a href="?action=connexion">Connexion</a>
                 <p></p>
                 <a href="?action=deconnexion">Déconnexion</a>
+                <p></p>
+                <a href="?action=subscriptions">Abonnements</a>
             </nav>
             <div id="content">
                 $html
@@ -66,6 +68,4 @@ class Routeur{
         </html>
         HTML; 
     }
-
-
 }

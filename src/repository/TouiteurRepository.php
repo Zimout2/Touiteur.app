@@ -9,7 +9,7 @@ class TouiteurRepository{
     private static ?TouiteurRepository $instance = null;
     private static array $config = [];
 
-    private function __construct(array $conf) {
+    public function __construct(array $conf) {
         $dsn = "{$conf['driver']}:host={$conf['host']};dbname={$conf['database']}";
         $this->pdo = new PDO($dsn, $conf['username'], $conf['password'], [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -204,9 +204,7 @@ class TouiteurRepository{
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
-    }
-
-    
+    }    
 
     public function getTouitById(int $id): ?array{
         $query = "SELECT t.idTouite, t.message, t.dateTouite, t.likeTouite, u.idUser, u.prenom
@@ -218,27 +216,6 @@ class TouiteurRepository{
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result ?: null;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getProfilPerso(int $idUser) {
         $query = "select prenom, email, idUser 
@@ -255,8 +232,6 @@ class TouiteurRepository{
         return new User($row['prenom'], $row['email'], (int)$row['idUser']);
     }
 
-
-
     public function getInfoProfil(int $idUser) {
         $query = "select 
                     (select count(*) from Follow where idFollow = ?) as abo,
@@ -268,10 +243,6 @@ class TouiteurRepository{
         return $stmt->fetch(PDO::FETCH_NUM) ?: [0, 0, 0];
     }
 
-
-
-
-
     public function getTouiteByUser(int $idUser) {
         $query = "select Touite.message, Touite.dateTouite, Touite.idUser
                   from Touite
@@ -281,10 +252,6 @@ class TouiteurRepository{
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
-
-
 
     public function isFollowing(int $idSuiveur, int $idSuivi): bool {
         //On compte le nombre de ligne en fonction de l'ID (c'est malin hein ?)
@@ -296,10 +263,6 @@ class TouiteurRepository{
         // Si count > 0, ça renvoie true, sinon false
         return ($stmt->fetchColumn() > 0);
     }
-
-
-
-
 
     public function addFollow(int $idSuiveur, int $idSuivi) {
         $query = "insert into Follow (idFollower, idFollow) values (:idSuiveur, :idSuivi)";
@@ -313,33 +276,19 @@ class TouiteurRepository{
         $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function getTouitesByUserId(int $id) : array {
         $query = "SELECT idTouite, message FROM Touite WHERE idUser = :id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['id' => $id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTouitesBySubscriptions(int $userId): array {
+        $query = "select distinct t.* from touite t left join author_tag at on t.id = at.touite_id 
+        where t.user_id in (select following_id from follower where user_id = :userId) or at.tag_id in 
+        (select tag_id from tag_follower where user_id = :userId) order by t.date desc";
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute(['userId' => $userId]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
