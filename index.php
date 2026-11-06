@@ -1,6 +1,5 @@
 <?php
 declare(strict_types=1);
-use touiteur\action\DisplayProfil;
 session_start();
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -17,6 +16,8 @@ use touiteur\action\ConnexionTouiteur;
 use touiteur\action\DeconnexionTouiteur;
 use touiteur\action\DisplayUtilisateur;
 use touiteur\action\DisplayFollowTag;
+use touiteur\action\DisplayProfil;
+use touiteur\action\TagTouiteur;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
