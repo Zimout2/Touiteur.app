@@ -254,16 +254,28 @@ class TouiteurRepository{
     }
 
     public function isFollowing(int $idSuiveur, int $idSuivi): bool {
-        //On compte le nombre de ligne en fonction de l'ID (c'est malin hein ?)
+        //On compte le nombre de ligne en fonction de l'ID
         $query = "select count(*) 
                   from Follow 
                   where idFollower = :idSuiveur and idFollow = :idSuivi";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi'   => $idSuivi]);
+        //Si count > 0, ça renvoie true, sinon false
+        return ($stmt->fetchColumn() > 0);
+    }
+
+    public function isFollowingTag(int $idUser, int $idTag): bool {
+        //On compte le nombre de ligne en fonction de l'ID (c'est malin hein ?)
+        $query = "select count(*) 
+                  from FollowTag
+                  where idUser = :idUser and idTag = :idTag";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idUser' => $idUser, 'idTag'   => $idTag]);
         // Si count > 0, ça renvoie true, sinon false
         return ($stmt->fetchColumn() > 0);
     }
 
+    //FOLLOW
     public function addFollow(int $idSuiveur, int $idSuivi) {
         $query = "insert into Follow (idFollower, idFollow) values (:idSuiveur, :idSuivi)";
         $stmt = $this->pdo->prepare($query);
@@ -274,6 +286,19 @@ class TouiteurRepository{
         $query = "delete from Follow where idFollower = :idSuiveur and idFollow = :idSuivi";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);
+    }
+
+    //TAG
+    public function addFollowTag(int $idUser, int $idTag) {
+        $query = "insert into FollowTag (idTag, idUser) values (:idTag, :idUser)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idTag' => $idTag, 'idUser' => $idUser]);
+    }
+
+    public function removeFollowTag(int $idUser, int $idTag) {
+        $query = "delete from FollowTag where idTag = :idTag and idUser = :idUser";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idTag' => $idTag, 'idUser' => $idUser]);
     }
 
     public function getTouitesByUserId(int $id) : array {

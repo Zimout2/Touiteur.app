@@ -48,17 +48,12 @@ class Routeur{
                 <p></p>
                 <a href="?action=profil">Profil</a>
                 <p></p>
-                <a href="?action=follow-tag">Follow Tag</a>
-                <p></p>
-                <a href="?action=profil-tag">Profil Tag</a>
-                <p></p>
                 <a href="?action=inscription">Inscription</a>
                 <p></p>
                 <a href="?action=connexion">Connexion</a>
                 <p></p>
                 <a href="?action=deconnexion">Déconnexion</a>
                 <p></p>
-                <a href="?action=Abonnements">Abonnements</a>
             </nav>
             <div id="content">
                 $html

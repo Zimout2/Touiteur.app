@@ -13,6 +13,7 @@
 
         public function execute(): string {
             $idTag = $_GET['id'] ?? $_SESSION['tag']['idTag'] ?? null;
+            $idUser = $_SESSION['user']['idUser'] ? $_SESSION['user']['idUser'] : null;
 
             if (!$idTag) {
                 return "<div class='profil-container'><p>Aucun tag n'est associé à ce tag.</p></div>";
@@ -27,6 +28,24 @@
             if (empty($tag)) {
                 return "<div class='profil-container'><p>Tag introuvable.</p></div>";
             }
+
+            $estAbonne = $repo->isFollowingTag($idUser, $idTag);
+
+            $html = "<div class='followtag-action' style='margin: 15px 0;'>";
+            if ($estAbonne) {
+                $html .= "
+                    <form method='POST' action='index.php?action=unfollowtag'>
+                        <input type='hidden' name='idTagToUnfollow' value='{$idTag}'>
+                        <button type='submit' class='btn-unfollow'>Se désabonner</button>
+                    </form>";
+            } else {
+                $html .= "
+                    <form method='POST' action='index.php?action=followtag'>
+                        <input type='hidden' name='idTagToFollow' value='{$idTag}'>
+                        <button type='submit' class='btn-follow'>S'abonner</button>
+                    </form>";
+            }
+            $html .= "</div>";
 
             $t = new Tag($tag['libelle'], $tag['idTag']);
             $touites_array = [];
@@ -48,7 +67,7 @@
             }
 
             $renderer = new TagRenderer($t, $touites_array);
-            $html = $renderer->render();
+            $html .= $renderer->render();
 
             return <<<HTML
             <style>

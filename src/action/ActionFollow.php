@@ -15,8 +15,8 @@ class ActionFollow extends Action {
             return "<p>Erreur : Identifiant de l'utilisateur à suivre manquant.</p>";
         }
 
-        $idSuiveur = (int) $_SESSION['user']['idUser'];
-        $idSuivi   = (int) $_POST['idToFollow'];
+        $idSuiveur = $_SESSION['user']['idUser'];
+        $idSuivi   = $_POST['idToFollow'];
 
         if ($idSuiveur === $idSuivi) {
             return "<p>Vous ne pouvez pas vous abonner à vous-même.</p>";
