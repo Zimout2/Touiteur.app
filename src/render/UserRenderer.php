@@ -1,86 +1,26 @@
 <?php
 
-
-
 namespace touiteur\render;
 
 use touiteur\entite\User;
 
-
 class UserRenderer implements Renderer {
 
-
-
-
-
-
-
-
-
-
-
-    private string $prenom;
-    private ?int $nb_touite = 0;
-    private ?int $nb_suivis = 0;
-    private ?int $nb_follow = 0;
-
-
-
-
-
-
-
-
-
-
-
+    private User $user;
 
     public function __construct(User $user) {
-        $this->prenom = $user->getPrenom();
+        $this->user = $user;
     }
-
-
-
-
-
-
-
-    public function setNbTouite(int $nbTouite) {
-        $this->nb_touite = $nbTouite;
-    }
-
-    public function setNbSuivi(int $nbSuivi) {
-        $this->nb_suivis = $nbSuivi;
-    }
-
-    public function setNbFollow(int $nbFollow) {
-        $this->nb_follow = $nbFollow;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function render(): string {
-        $html = "<h2>" . $this->prenom . "</h2>";
-        $html .= "<p><span>Nombre de followers : " . $this->nb_follow . "       </span><span>Nombre de suivis : " . $this->nb_suivis . "</span></p>";
-        $html .= "<p>Nombre de touites : " . $this->nb_touite . "</p>";
-        $html .= "<h3>Touites</h3>";
+        $html = "<div class='profile-card'>";
+        $html .= "<h2>" . htmlspecialchars($this->user->getPrenom()) . "</h2>";
+        $currentUserId = $_SESSION['user_id'] ?? null;
+        $profileId = $this->user->getId();
+        if ($currentUserId !== null && $currentUserId !== $profileId) {
+            $html .= "<a href='?action=follow&id={$profileId}' class='btn-follow'>Suivre</a>";
+        }
+        $html .= "</div>";
         return $html;
     }
-
-
-
-
 }

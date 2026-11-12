@@ -18,12 +18,15 @@ class ActionFollow extends Action {
         $idSuiveur = $_SESSION['user']['idUser'];
         $idSuivi   = $_POST['idToFollow'];
 
-        if ($idSuiveur === $idSuivi) {
-            return "<p>Vous ne pouvez pas vous abonner à vous-même.</p>";
+        if ($idSuiveur == $idSuivi) {
+            header('Location: ?action=utilisateur&erreur=self_follow');
+            exit();
         }
 
         $repo = TouiteurRepository::getInstance();
-        $repo->addFollow($idSuiveur, $idSuivi);
+        if ($idSuivi && !$repo->isFollowing($idSuiveur, (int)$idSuivi)) {
+            $repo->addFollow($idSuiveur, (int)$idSuivi);
+        }
 
         header("Location: index.php?action=profil&id={$idSuivi}");
         exit();
