@@ -22,27 +22,27 @@ class DisplayTag extends Action {
         }
       
         $html  = "";
-        $html .= "<div class='main-container'>";
+            $html .= "<div class='tag-container'>";
+            $html .= "<h2>Listes des tags :</h2>";
+            foreach ($tag as $tags) {
+                // Récupération de l'id du tag
+                $idTag = (int) ($tags['idTag'] ?? 0);
 
-        $html .= "<div class='tag-container'>";
-        $html .= "<h2>Listes des tags :</h2>";
-        foreach ($tag as $tags) {
-            // Récupération de l'id du tag
-            $idTag = (int) ($tags['idTag'] ?? 0);
+                // Filtrage du libelle id de l'url pour inviter les injections
+                $libelleTag = filter_var($tags['libelle'] ?? 'Inconnu', FILTER_SANITIZE_SPECIAL_CHARS);
 
-            // Filtrage du libelle id de l'url pour inviter les injections
-            $libelleTag = filter_var($tags['libelle'] ?? 'Inconnu', FILTER_SANITIZE_SPECIAL_CHARS);
+                $touitesDuTag = $repo->getTouitesByTag($idTag);
 
-            $touitesDuTag = $repo->getTouitesByTag($idTag);
-
-            if (empty($touitesDuTag)) {
-                $html .= "<p>Aucun touite associé à ce tag.</p>";
-            } else {
-                // Lien cliquable permettant de conduire à l'ensemble des touites gravitant autour de ce fameux tag
-                $html .= "<p><a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";
-                $html .= "<p></p>";
+                if (empty($touitesDuTag)) {
+                    $html .= "<p>Aucun touite associé à ce tag.</p>";
+                } else {
+                    // Lien cliquable permettant de conduire à l'ensemble des touites gravitant autour de ce fameux tag
+                    $html .= "<div class='liste_tag'>";
+                    $html .= "<p> - <a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";
+                    $html .= "<p></p>";
+                }
             }
-        }
+            $html .= "</div>";
         $html .= "</div>";
 
         // Affichage html
@@ -52,6 +52,12 @@ class DisplayTag extends Action {
                 max-width: 600px;
                 margin: 0 auto;
                 text-align: center;
+                font-family: Arial, sans-serif;
+            }
+            .liste_tag {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: left;
                 font-family: Arial, sans-serif;
             }
         </style>
