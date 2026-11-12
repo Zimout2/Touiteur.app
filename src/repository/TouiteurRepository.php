@@ -286,6 +286,9 @@ class TouiteurRepository{
     }
 
     public function removeFollow(int $idSuiveur, int $idSuivi) {
+        if ($idSuiveur === $idSuivi) {
+        return;
+        }
         $query = "delete from Follow where idFollower = :idSuiveur and idFollow = :idSuivi";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);
