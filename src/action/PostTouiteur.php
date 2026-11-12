@@ -16,7 +16,7 @@ class PostTouiteur extends Action {
             return <<<HTML
                 <h2> Poster le touite </h2>
                 <form method = "post" action ="?action=publication">
-                    <label>Le texte est limiter à 235 caractères max </label>
+                    <label>Le texte est limité à 235 caractères maximum.</label>
                     <textarea id="texte" name="texte" rows="4" cols="50" maxlength="235" required></textarea>
                     <button type="submit">Publier</button>
                 </form>

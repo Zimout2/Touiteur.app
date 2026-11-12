@@ -28,7 +28,10 @@ class ConnexionTouiteur extends Action {
         return "<p>Pseudo ou email incorrect. <a href=\"?action=connexion\">Réessayer</a></p>";
     }
 
-    $_SESSION['user'] = $user;  
-    return "<p>Bonjour {$user['prenom']} ! <a href=\"?action=accueil\">Accueil</a></p>";
+    $_SESSION['user'] = $user;
+    $p = "";
+    $p .= "<p>Bonjour {$user['prenom']}, vous avez réussis à vous connecter avec succès !<br><br></p>";
+    $p .= "<p>Rendez vous maintenant à l'<a href=\"?action=accueil\">accueil</a> de Touiteur !</p>";
+    return $p;
     }
 }
