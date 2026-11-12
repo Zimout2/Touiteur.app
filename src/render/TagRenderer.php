@@ -79,10 +79,11 @@ class TagRenderer implements Renderer {
         } else {
             $html .= "<div class='touites-list'>";
             foreach ($this->touites as $touite) {
-                $html .= $touite;
-                $html .= "</div>";
+                $html .= "<div class='touite-item'>" . $touite->render() . "</div>";;
             }
+            $html .= "</div>";
         }
+        $html .= "</div>";
 
         return $html;
     }
