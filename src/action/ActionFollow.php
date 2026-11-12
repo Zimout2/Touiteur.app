@@ -17,7 +17,13 @@ class ActionFollow extends Action {
         }
 
         $idSuiveur = (int)$_SESSION['user_id'];
-        $idSuivi = (int)($_POST['id'] ?? $_GET['id'] ?? 0);
+        $baseId = $_POST['id'] ?? $_POST['idUser'] ?? $_POST['idFollow'] ?? $_GET['id'] ?? $_GET['idUser'] ?? 0;
+        $idSuivi = (int)$baseId;
+
+        if ($idSuivi <= 0 || $idSuiveur === $idSuivi) {
+            header('Location: ' . ($_SERVER['HTTP_REFERER'] ?? '?action=utilisateur'));
+            exit();
+        }
 
         if ($idSuivi === 0 || $idSuiveur === $idSuivi) {
             header('Location: ?action=displayUser&id=' . $idSuivi);
