@@ -48,7 +48,7 @@ class DisplayUtilisateur extends Action {
         </style>
 
         <div class='tag-container'>
-            {$html} <!-- Attention à ne pas réinjecter $html dans lui-même, adaptez selon votre variable finale -->
+            {$html}
         </div>
         HTML;
     }

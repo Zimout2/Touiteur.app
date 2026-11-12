@@ -43,7 +43,6 @@ class DisplayTag extends Action {
                 }
             }
             $html .= "</div>";
-        $html .= "</div>";
 
         // Affichage html
         return <<<HTML
@@ -57,7 +56,6 @@ class DisplayTag extends Action {
             .liste_tag {
                 max-width: 600px;
                 margin: 0 auto;
-                text-align: left;
                 font-family: Arial, sans-serif;
             }
         </style>
