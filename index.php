@@ -20,6 +20,8 @@ use touiteur\action\TagTouiteur;
 use touiteur\action\DisplayTouitsAbonne;
 use touiteur\action\ActionFollowTag;
 use touiteur\action\ActionUnfollowTag;
+use touiteur\action\ActionFollow;
+use touiteur\action\ActionUnfollow;
 
 TouiteurRepository::setConfig(__DIR__ . '/src/config/sae.db.ini');
 
@@ -40,5 +42,7 @@ $app->addRoute('profil-tag', TagTouiteur::class);
 $app->addRoute('Abonnements', DisplayTouitsAbonne::class);
 $app->addRoute('followtag', ActionFollowTag::class);
 $app->addRoute('unfollowtag', ActionUnfollowTag::class);
+$app->addRoute('follow', ActionFollow::class);
+$app->addRoute('unfollow', ActionUnfollow::class);
 
 echo $app->run();
