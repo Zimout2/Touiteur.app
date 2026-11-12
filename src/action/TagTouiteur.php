@@ -77,9 +77,6 @@
                     text-align: center;
                     font-family: Arial, sans-serif;
                 }
-                .touites-list {
-                    margin-top: 20px;
-                }
             </style>
 
             <div class='profil-container'>
