@@ -11,8 +11,8 @@ class   DisplayProfil extends Action {
 
     public function execute(): string {
 
-        $idUserConnecte = $_SESSION['user']['idUser'] ? $_SESSION['user']['idUser'] : null;
-        $idUserProfil   = $_GET['id'] ? $_GET['id'] : $idUserConnecte;
+        $idUserConnecte = $_SESSION['user']['idUser'] ?? null ;
+        $idUserProfil   = filter_var($_GET['id'] ?? $idUserConnecte, FILTER_VALIDATE_INT);
 
         if (!$idUserProfil) {
             return "<div class='profil-container'><p>Veuillez vous connecter pour accéder à votre profil.</p></div>";
