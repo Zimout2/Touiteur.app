@@ -173,7 +173,7 @@ class TouiteurRepository{
      * @return array retourne une liste d'utilisateur
      */
     public function getFollowers(int $idUser) : array{
-        $query = "SELECT F.idFollower FROM Follow F, Users U WHERE F.idFollower = U.idUSER AND F.idFollower = :idUser";
+        $query = "SELECT F.idFollower FROM Follow F, Users U WHERE F.idFollow = :idUser AND F.idFollower = :idUser";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idUser' => $idUser]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
