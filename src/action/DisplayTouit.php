@@ -3,7 +3,7 @@
 namespace touiteur\action; 
 
 use touiteur\repository\TouiteurRepository;
-use touiteur\entite\user;
+use touiteur\entite\User;
 use touiteur\entite\Touite;
 use touiteur\render\TouiteurRenderer ;
 
@@ -23,7 +23,7 @@ class DisplayTouit extends Action {
             return "<p>le touite n'existe pas </p>";
         }
 
-        $message = $this->retirerTags($ligne['message']);
+        $message = $message = $ligne['message'];
         $auteur = new User($ligne['prenom'], '', $ligne['idUser']);
         $touite = new Touite($message, $auteur, $ligne['dateTouite']);
         
