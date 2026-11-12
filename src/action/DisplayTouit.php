@@ -3,7 +3,7 @@
 namespace touiteur\action; 
 
 use touiteur\repository\TouiteurRepository;
-use touiteur\entite\user;
+use touiteur\entite\User;
 use touiteur\entite\Touite;
 use touiteur\render\TouiteurRenderer ;
 
@@ -23,23 +23,15 @@ class DisplayTouit extends Action {
             return "<p>le touite n'existe pas </p>";
         }
 
-        $message = $this->retirerTags($ligne['message']);
+        $message = $message = $ligne['message'];
         $auteur = new User($ligne['prenom'], '', $ligne['idUser']);
         $touite = new Touite($message, $auteur, $ligne['dateTouite']);
         
-        $renderer = new TouiteurRenderer($touite);
+        $tags = $repo->getTagsByTouite($id);
+        $renderer = new TouiteurRenderer($touite, $tags);
         $html = "<div class=\"touite-detail\">";
         $html .= $renderer->render();
 
-        // Les tags du touite, cliquables
-        $tags = $repo->getTagsByTouite($id);
-        if (count($tags) > 0) {
-            $html .= "<p>Tag :";
-            foreach ($tags as $tag) {
-                $html .= " <a href=\"?action=displayTag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
-            }
-            $html .= "</p>";
-        }
 
         $html .= "<a href=\"?action=accueil\">← Retour à la liste</a>";
         $html .= "</div>";

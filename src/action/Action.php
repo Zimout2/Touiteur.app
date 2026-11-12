@@ -13,18 +13,7 @@ abstract class Action {
         $this->script_name = $_SERVER['SCRIPT_NAME'];
     }
 
-    // Retire les mots qui commencent par # (les tags sont affichés à part)
-    protected function retirerTags(string $message): string
-    {
-        $mots = explode(' ', $message);
-        $motsSansTag = [];
-        foreach ($mots as $mot) {
-            if ($mot !== '' && $mot[0] !== '#') {
-                $motsSansTag[] = $mot;
-            }
-        }
-        return implode(' ', $motsSansTag);
-    }
+    
 
     abstract public function execute() : string;
 

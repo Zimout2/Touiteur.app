@@ -284,6 +284,9 @@ class TouiteurRepository{
 
     //FOLLOW
     public function addFollow(int $idSuiveur, int $idSuivi) {
+        if ($idSuiveur === $idSuivi) {
+        return; 
+        }
         $query = "insert into Follow (idFollower, idFollow) values (:idSuiveur, :idSuivi)";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['idSuiveur' => $idSuiveur, 'idSuivi' => $idSuivi]);

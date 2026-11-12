@@ -12,9 +12,12 @@
     class TagTouiteur extends Action {
 
         public function execute(): string {
-            $idTag = $_GET['id'] ?? $_SESSION['tag']['idTag'] ?? null;
-            $idUser = $_SESSION['user']['idUser'] ? $_SESSION['user']['idUser'] : null;
+            if (!isset($_SESSION['user']['idUser'])) {
+                return "<p>Vous devez être connecté pour pouvoir voir les listes des touites associé à ce tag</p>";
+            }
 
+            $idTag = $_GET['id'] ?? $_SESSION['tag']['idTag'] ?? null;
+            $idUser = $_SESSION['user']['idUser'];
             if (!$idTag) {
                 return "<div class='profil-container'><p>Aucun tag n'est associé à ce tag.</p></div>";
             }
@@ -59,10 +62,13 @@
                     $to['message'] ?? '',
                     $user,
                     $to['dateTouite'] ?? '',
-                    (int)($to['likeTouite'] ?? 0)
+                    (int)($to['likeTouite'] ?? 0),
                 );
 
-                $touiteRenderer = new TouiteurRenderer($new_touite);
+                $idTouite = $to['idTouite'] ?? 0;
+                $tags = ($idTouite > 0) ? $repo->getTagsByTouite($idTouite) : [];
+
+                $touiteRenderer = new TouiteurRenderer($new_touite, $tags);
                 $touites_array[] = $touiteRenderer->render();
             }
 
@@ -77,9 +83,6 @@
                     margin: 0 auto;
                     text-align: center;
                     font-family: Arial, sans-serif;
-                }
-                .touites-list {
-                    margin-top: 20px;
                 }
             </style>
 
