@@ -38,7 +38,7 @@ class TouiteurRenderer implements Renderer {
         }
 
 
-        $html = "<div>";
+        $html = "<div class=\"touite\">";
         $html .= "<h4><a href='?action=profil&id={$idUser}'>{$prenom}</a></h4>";
         if ($isMessageLong) {
             $html .= "<p>" . $messageCourt . "...</p>";

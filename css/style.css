@@ -1,0 +1,228 @@
+/* =========================================================
+   Touiteur — feuille de style unique
+   ========================================================= */
+
+/* ---------- Base ---------- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f6f7f9;
+    color: #1f2328;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    line-height: 1.5;
+}
+
+a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- En-tête : titre + menu ---------- */
+header {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+header h1 a {
+    color: #1f2328;
+}
+
+header h1 a:hover {
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+nav a {
+    padding: 6px 8px;
+    border-radius: 6px;
+    color: #57606a;
+    font-size: 0.9rem;
+}
+
+nav a:hover {
+    background: #f0f2f5;
+    color: #1f2328;
+    text-decoration: none;
+}
+
+/* ---------- Zone de contenu ---------- */
+#content {
+    max-width: 680px;
+    margin: 28px auto;
+    padding: 0 16px;
+    overflow-wrap: break-word; 
+}
+
+h2 {
+    margin: 0 0 16px;
+    font-size: 1.3rem;
+}
+
+h3 {
+    margin: 24px 0 12px;
+    font-size: 1.05rem;
+}
+
+/* ---------- Un touite ---------- */
+.touite {
+    margin-bottom: 12px;
+    padding: 14px 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.touite h4 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.touite h4 a {
+    color: #1f2328;
+}
+
+.touite p {
+    margin: 0 0 8px;
+}
+
+.touite small {
+    color: #6b7280;
+    font-size: 0.85rem;
+}
+
+details summary {
+    margin-bottom: 6px;
+    color: #2563eb;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+/* ---------- Images des touites ---------- */
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* ---------- Formulaires ---------- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+}
+
+/* Les <br> entre les champs créent des trous : l'espacement est géré par "gap" */
+form br {
+    display: none;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font: inherit;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+input[type="file"] {
+    font-size: 0.9rem;
+}
+
+button {
+    align-self: flex-start;
+    padding: 8px 18px;
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 999px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+/* Boutons S'abonner / Se désabonner : pas de cadre autour du formulaire */
+.follow-action form,
+.followtag-action form {
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.follow-action button,
+.followtag-action button {
+    align-self: center;
+}
+
+.btn-unfollow {
+    background: #ffffff;
+    color: #1f2328;
+    border: 1px solid #d1d5db;
+}
+
+.btn-unfollow:hover {
+    background: #f3f4f6;
+}

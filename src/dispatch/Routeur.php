@@ -33,28 +33,25 @@ class Routeur{
         <html lang="fr">
         <head> 
             <meta charset="UTF-8">
+            <link rel="stylesheet" href="css/style.css">
             <title>Touiteur</title>
         </head>
         <body>
-            <h1>Touiteur</h1>
-            <nav>
-                <a href="?action=accueil">Accueil</a>
-                <p></p>
-                <a href="?action=publication">Publier un touite</a>
-                <p></p>
-                <a href="?action=displayTag">Tag</a>
-                <p></p>
-                <a href="?action=utilisateur">Utilisateur</a>
-                <p></p>
-                <a href="?action=profil">Profil</a>
-                <p></p>
-                <a href="?action=inscription">Inscription</a>
-                <p></p>
-                <a href="?action=connexion">Connexion</a>
-                <p></p>
-                <a href="?action=deconnexion">Déconnexion</a>
-                <p></p>
-            </nav>
+            <header>
+            <div class="header-inner">
+                <h1><a href="?action=accueil">Touiteur</a></h1>
+                <nav>
+                    <a href="?action=accueil">Accueil</a>
+                    <a href="?action=publication">Publier un touite</a>
+                    <a href="?action=displayTag">Tag</a>
+                    <a href="?action=utilisateur">Utilisateur</a>
+                    <a href="?action=profil">Profil</a>
+                    <a href="?action=inscription">Inscription</a>
+                    <a href="?action=connexion">Connexion</a>
+                    <a href="?action=deconnexion">Déconnexion</a>
+                </nav>
+            </div>
+            </header>
             <div id="content">
                 $html
             </div>
