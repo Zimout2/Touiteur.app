@@ -69,7 +69,7 @@
                 $tags = ($idTouite > 0) ? $repo->getTagsByTouite($idTouite) : [];
 
                 $touiteRenderer = new TouiteurRenderer($new_touite, $tags);
-                $touites_array[] = $touiteRenderer->render();
+                $touites_array[] = $touiteRenderer;
             }
 
             $renderer = new TagRenderer($t, $touites_array);
