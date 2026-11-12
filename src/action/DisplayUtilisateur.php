@@ -7,6 +7,11 @@ use touiteur\repository\TouiteurRepository;
 class DisplayUtilisateur extends Action {
 
 
+    /**
+     * Cette méthode permet d'afficher la liste des utilisateur de la base de données
+     * @return string
+     * @throws \Exception
+     */
     public function execute(): string {
         $repo = TouiteurRepository::getInstance();
         $user_list = $repo->getUsersTriFollowers();

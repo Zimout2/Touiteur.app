@@ -11,8 +11,8 @@ class   DisplayProfil extends Action {
 
     public function execute(): string {
 
-        $idUserConnecte = isset($_SESSION['user']['idUser']) ? (int)$_SESSION['user']['idUser'] : null;
-        $idUserProfil   = isset($_GET['id']) ? (int)$_GET['id'] : $idUserConnecte;
+        $idUserConnecte = $_SESSION['user']['idUser'] ? $_SESSION['user']['idUser'] : null;
+        $idUserProfil   = $_GET['id'] ? $_GET['id'] : $idUserConnecte;
 
         if (!$idUserProfil) {
             return "<div class='profil-container'><p>Veuillez vous connecter pour accéder à votre profil.</p></div>";
@@ -61,7 +61,8 @@ class   DisplayProfil extends Action {
             $html .= "<br><div class='touites-list'>";
             foreach ($touiteUser as $touite) {
                 $touiteNew = new Touite($touite['message'], $profilUser, $touite['dateTouite']);
-                $renderTouite = new TouiteurRenderer($touiteNew);
+                $tags  = $repo->getTagsByTouite($touite['idTouite']);
+                $renderTouite = new TouiteurRenderer($touiteNew, $tags);
                 $html .= $renderTouite->render();
             }
             $html .= "</div>";

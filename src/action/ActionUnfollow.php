@@ -11,8 +11,8 @@ class ActionUnfollow extends Action {
             return "<p>Requête invalide.</p>";
         }
 
-        $idSuiveur = (int) $_SESSION['user']['idUser'];
-        $idSuivi   = (int) $_POST['idToUnfollow'];
+        $idSuiveur = $_SESSION['user']['idUser'];
+        $idSuivi   = $_POST['idToUnfollow'];
 
         $repo = TouiteurRepository::getInstance();
         $repo->removeFollow($idSuiveur, $idSuivi);

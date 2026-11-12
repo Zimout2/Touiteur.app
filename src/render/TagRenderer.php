@@ -71,13 +71,14 @@ class TagRenderer implements Renderer {
         $html .= "<h2>Titre du tag : #$libelleTag</h2>";
         $html .= "<p>Nombre de suivis : " . $this->nb_suivis . "</p>";
         $html .= "<p>Nombre de touites : " . $this->nb_touite . "</p>";
+        $html .= "<h3>Listes des touites réalisé : </h3>";
 
         if (empty($this->touites)) {
             $html .= "<p>Aucun touite pour le moment n'est associé à ce tag.</p>";
         } else {
             $html .= "<div class='touites-list'>";
-            foreach ($this->touites as $touiteHtml) {
-                $html .= $touiteHtml;
+            foreach ($this->touites as $touite) {
+                $html .= $touite;
                 $html .= "</div>";
             }
         }
