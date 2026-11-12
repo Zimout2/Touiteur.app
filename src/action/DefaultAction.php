@@ -31,7 +31,7 @@ class DefaultAction extends Action {
             // Récupération du user lié à ce touites
             $auteur = new User($t['prenom'], '', $t['idUser']);
             // Récupération des touites du user sans les tags
-            $touite = new Touite($this->retirerTags($t['message']), $auteur, $t['dateTouite']);
+            $touite = new Touite($t['message'], $auteur, $t['dateTouite']);
 
             // Récupération des tags du touites
             $tags = $obj->getTagsByTouite($t['idTouite']);
