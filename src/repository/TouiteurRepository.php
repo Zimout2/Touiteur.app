@@ -184,7 +184,7 @@ class TouiteurRepository{
               FROM Users U 
               LEFT JOIN Follow F ON U.idUser = F.idFollow 
               GROUP BY U.idUser, U.prenom 
-              ORDER BY nb_followers DESC";
+              ORDER BY nb_followers ASC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
