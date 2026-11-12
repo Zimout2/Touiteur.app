@@ -40,7 +40,6 @@ class TagRenderer implements Renderer {
         $this->libelle = $tag->getLibelle();
         $this->nb_touite = count($touites);
         $this->nb_suivis = count($tag->getListeSuivie());
-        $this->nb_suivis = 0;
         $this->touites = $touites;
     }
 
@@ -50,7 +49,9 @@ class TagRenderer implements Renderer {
 
 
 
-
+    public function setNbSuivis(int $nb) {
+        $this->nb_suivis = $nb;
+    }
 
 
 

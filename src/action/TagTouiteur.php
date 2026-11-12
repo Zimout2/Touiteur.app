@@ -67,6 +67,7 @@
             }
 
             $renderer = new TagRenderer($t, $touites_array);
+            $renderer->setNbSuivis($repo->getNbFollowersTag($idTag));
             $html .= $renderer->render();
 
             return <<<HTML

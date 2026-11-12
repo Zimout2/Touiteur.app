@@ -275,6 +275,13 @@ class TouiteurRepository{
         return ($stmt->fetchColumn() > 0);
     }
 
+    public function getNbFollowersTag(int $idTag): int {
+        $query = "select count(*) from FollowTag where idTag = :idTag";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idTag' => $idTag]);
+        return $stmt->fetchColumn();
+    }
+
     //FOLLOW
     public function addFollow(int $idSuiveur, int $idSuivi) {
         $query = "insert into Follow (idFollower, idFollow) values (:idSuiveur, :idSuivi)";
