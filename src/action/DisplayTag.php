@@ -38,7 +38,7 @@ class DisplayTag extends Action {
                 } else {
                     // Lien cliquable permettant de conduire à l'ensemble des touites gravitant autour de ce fameux tag
                     $html .= "<div class='liste_tag'>";
-                    $html .= "<p> - <a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";
+                    $html .= "<p><a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a></p>";
                     $html .= "<p></p>";
                 }
             }
