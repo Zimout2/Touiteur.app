@@ -184,7 +184,7 @@ class TouiteurRepository{
               FROM Users U 
               LEFT JOIN Follow F ON U.idUser = F.idFollow 
               GROUP BY U.idUser, U.prenom 
-              ORDER BY nb_followers DESC";
+              ORDER BY nb_followers ASC";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -273,6 +273,13 @@ class TouiteurRepository{
         $stmt->execute(['idUser' => $idUser, 'idTag'   => $idTag]);
         // Si count > 0, ça renvoie true, sinon false
         return ($stmt->fetchColumn() > 0);
+    }
+
+    public function getNbFollowersTag(int $idTag): int {
+        $query = "select count(*) from FollowTag where idTag = :idTag";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(['idTag' => $idTag]);
+        return $stmt->fetchColumn();
     }
 
     //FOLLOW
