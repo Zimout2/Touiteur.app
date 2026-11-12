@@ -11,7 +11,7 @@ class   DisplayProfil extends Action {
 
     public function execute(): string {
 
-        $idUserConnecte = $_SESSION['user']['idUser'] ? $_SESSION['user']['idUser'] : null;
+        $idUserConnecte = $_SESSION['user']['idUser'] ?? null;
         $idUserProfil   = $_GET['id'] ?? $idUserConnecte;
 
         if (!$idUserProfil) {
