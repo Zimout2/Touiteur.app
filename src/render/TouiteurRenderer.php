@@ -25,17 +25,18 @@ class TouiteurRenderer implements Renderer {
 
         $prenom = filter_var($this->user->getPrenom(), FILTER_SANITIZE_SPECIAL_CHARS);
         $idUser = $this->user->getId();
-
+        $messageCourt = substr($this->message, 0, 100);
+        $isMessageLong = strlen($this->message) > 100;
         $message = $this->message;
         foreach ($this->tags as $tag) {
             $libelleTag = $tag['libelle'];
             $idTag = $tag['idTag'];
             $lien = "<a href=\"?action=profil-tag&id={$idTag}\">#{$libelleTag}</a>";
-            $message = str_replace("#{$libelleTag}", $lien, $message);
+
+            $message = str_replace("#{$tag['libelle']}", $lien, $message);
+            $messageCourt = str_replace("#{$libelleTag}", $lien, $messageCourt);
         }
 
-        $messageCourt = substr($message, 0, 100);
-        $isMessageLong = strlen($message) > 100;
 
         $html = "<div>";
         $html .= "<h4><a href='?action=profil&id={$idUser}'>{$prenom}</a></h4>";
@@ -48,17 +49,10 @@ class TouiteurRenderer implements Renderer {
         } else {
             $html .= "<p>" . $message . "</p>";
         }
-        // Les tags du touite cliquables
-        if (count($this->tags) > 0) {
-            $html .= "<p>Tag :";
-            foreach ($this->tags as $tag) {
-                $html .= " <a href=\"?action=profil-tag&id={$tag['idTag']}\">#{$tag['libelle']}</a>";
-            }
-            $html .= "</p>";
-        }
+        
         $html .= "<small>Publié le : " . $this->date . "</small>";
         //$html .= "<small> Like : " . $this->like . "</small>";
-        $html .= "<br>";
+        $html .= "</div>";
 
         return $html;
     }
