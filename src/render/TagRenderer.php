@@ -69,10 +69,10 @@ class TagRenderer implements Renderer {
         $libelleTag = filter_var($this->libelle, FILTER_SANITIZE_SPECIAL_CHARS);
 
         $html = "";
-        $html .= "<h2>Titre du tag : #$libelleTag</h2>";
+        $html .= "<h2>#$libelleTag</h2>";
         $html .= "<p>Nombre de suivis : " . $this->nb_suivis . "</p>";
         $html .= "<p>Nombre de touites : " . $this->nb_touite . "</p>";
-        $html .= "<h3>Listes des touites réalisé : </h3>";
+        $html .= "<h3>Touites :</h3>";
 
         if (empty($this->touites)) {
             $html .= "<p>Aucun touite pour le moment n'est associé à ce tag.</p>";
