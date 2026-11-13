@@ -9,3 +9,5 @@ out/
 # config application
 *.ini
 
+
+vendor/
